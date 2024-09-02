@@ -5,13 +5,19 @@
         const button = $(e.relatedTarget);
         id = button.data("id");
         const detail = '{{ route('roadmap.prodi.show', [':id']) }}';
+
+        // Menampilkan tombol simpan review
+        $("#btn_review_simpan").show();
         DataManager.fetchData(detail.replace(':id', id))
             .then(function(response) {
                 if (response.success) {
                     $("#komentar").val(response.data.komentar);
                     $("#keputusan").val(response.data.status);
+                    // Mengatur visibilitas tombol berdasarkan status
                     if (response.data.status == 'Acc') {
-                        $("#btn_review_simpan").remove();
+                        $("#btn_review_simpan").hide(); // Menyembunyikan tombol jika statusnya 'Acc'
+                    } else {
+                        $("#btn_review_simpan").show(); // Menampilkan tombol jika statusnya bukan 'Acc'
                     }
                     $('.selectpicker').selectpicker('refresh').selectpicker('render');
                 }

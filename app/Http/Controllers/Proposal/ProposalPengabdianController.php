@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Proposal;
 use App\Http\Controllers\Controller;
 use App\Models\HistoryProposal;
 use App\Models\Proposal;
+use App\Models\TahunAkademik;
 use App\Rules\WordCount;
 use App\Services\PermissionService;
 use App\Services\ProposalValidationService;
@@ -51,8 +52,9 @@ class ProposalPengabdianController extends Controller
         }
 
         $id = Crypt::decryptString($request->id);
+        $maxFunding = TahunAkademik::where('id_tahun_akademik', $id)->value('dana_maksimal') ?? 1;
         $validateData = $this->permissionService->validateData($request->all(), [
-            'pengabdian_dana' => 'required',
+            'pengabdian_dana' => ['required', 'numeric', 'max:' . $maxFunding],
             'pengabdian_judul' => 'required',
             'pengabdian_abstrak' => ['required', new WordCount(150, 250)],
             'pengabdian_kata_kunci' => 'required',
@@ -62,6 +64,10 @@ class ProposalPengabdianController extends Controller
             'pengabdian_dapus' => 'required',
             'pengabdian_jenis_pengabdian' => 'required',
             'pengabdian_file_proposal' => $request->hasFile('pengabdian_file_proposal') ? 'mimes:pdf|max:3072' : 'nullable'
+        ], [
+            'pengabdian_dana.required' => 'Dana pengabdian wajib diisi.',
+            'pengabdian_dana.numeric' => 'Dana pengabdian harus berupa angka.',
+            'pengabdian_dana.max' => 'Dana pengabdian tidak boleh melebihi :max.',
         ]);
 
         if ($validateData !== null) {
@@ -148,6 +154,68 @@ class ProposalPengabdianController extends Controller
         $one['id_cript'] = Crypt::encryptString($one->id_proposal);
 
         if ($one) {
+            return response()->json(['success' => true, 'message' => 'data tersedia', 'data' => $one], 200);
+        } else {
+            return response()->json(['success' => false, 'message' => 'data tidak ditemukan', 'data' => $one], 400);
+        }
+    }
+
+    public function suratTugas(string $id)
+    {
+        $id = Crypt::decryptString($id);
+
+        $one = Proposal::select(
+            'proposal.id_proposal',
+            'proposal.jenis',
+            'proposal.status_review',
+            'proposal.judul',
+            'proposal.tahun_akademik_id',
+            'proposal.dosen_id',
+            'surat_tugas_proposal.tempat',
+            'surat_tugas_proposal.tanggal',
+            'surat_tugas_proposal.file_surat',
+        )
+            ->leftJoin('dosen', 'dosen.id_dosen', '=', 'proposal.dosen_id')
+            ->leftJoin('surat_tugas_proposal', 'surat_tugas_proposal.proposal_id', '=', 'proposal.id_proposal')
+            ->where('proposal.jenis', 'Pengabdian')
+            // auth dosen
+            ->when($this->userRole == 'dosen', function ($q)  use ($id) {
+                $q->where([['proposal.tahun_akademik_id', $id], ['proposal.dosen_id', $this->dosenId]]);
+            })
+            ->latest('proposal.created_at')
+            ->first();
+        if ($one) {
+            $one['id_cript'] = Crypt::encryptString($one->id_proposal);
+            return response()->json(['success' => true, 'message' => 'data tersedia', 'data' => $one], 200);
+        } else {
+            return response()->json(['success' => false, 'message' => 'data tidak ditemukan', 'data' => $one], 400);
+        }
+    }
+
+    public function suratMoa(string $id)
+    {
+        $id = Crypt::decryptString($id);
+
+        $one = Proposal::select(
+            'proposal.id_proposal',
+            'proposal.jenis',
+            'proposal.status_review',
+            'proposal.judul',
+            'proposal.tahun_akademik_id',
+            'proposal.dosen_id',
+            'surat_moa_proposal.file_moa',
+        )
+            ->leftJoin('dosen', 'dosen.id_dosen', '=', 'proposal.dosen_id')
+            ->leftJoin('surat_moa_proposal', 'surat_moa_proposal.proposal_id', '=', 'proposal.id_proposal')
+            ->where('proposal.jenis', 'Pengabdian')
+            // auth dosen
+            ->when($this->userRole == 'dosen', function ($q)  use ($id) {
+                $q->where([['proposal.tahun_akademik_id', $id], ['proposal.dosen_id', $this->dosenId]]);
+            })
+            ->latest('proposal.created_at')
+            ->first();
+        if ($one) {
+            $one['id_cript'] = Crypt::encryptString($one->id_proposal);
             return response()->json(['success' => true, 'message' => 'data tersedia', 'data' => $one], 200);
         } else {
             return response()->json(['success' => false, 'message' => 'data tidak ditemukan', 'data' => $one], 400);

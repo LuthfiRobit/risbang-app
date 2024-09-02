@@ -15,7 +15,7 @@
                     $("#show_data_tahun_akademik").text(response.data.nama_tahun_akademik);
                     $("#show_data_tanggal_akhir").text(response.data.tanggal_akhir);
                     $("#show_data_jenis").text(response.data.jenis);
-                    $("#show_data_keterangan").text(response.data.keteragan);
+                    $("#show_data_keterangan").text(response.data.keterangan);
                     $("#show_data_deskripsi").text(response.data.deskripsi);
                     $("#show_data_aktif").text(text);
                     $("#null_data").hide();

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->year('tahun_awal');
             $table->year('tahun_akhir');
             $table->string('nama_tahun_akademik')->nullable();
+            $table->integer('dana_maksimal')->nullable();
             $table->enum('aktif', ['y', 't'])->default('t');
             $table->enum('buku', ['y', 't'])->default('t');
             $table->enum('haki', ['y', 't'])->default('t');

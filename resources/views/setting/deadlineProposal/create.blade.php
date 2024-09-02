@@ -44,6 +44,7 @@
                             <select class="selectpicker form-control form-control-sm" name="keterangan" id="keterangan"
                                 data-live-search="true" title="Pilih Keterangan Deadline" required>
                                 <option value="Proposal">Proposal</option>
+                                <option value="Pelaksanaan">Pelaksanaan</option>
                                 <option value="Kemajuan">Kemajuan</option>
                                 <option value="Akhir">Akhir</option>
                                 <option value="Luaran">Luaran</option>

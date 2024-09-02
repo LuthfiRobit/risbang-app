@@ -68,7 +68,11 @@
                             aria-label="Close" data-dismiss="modal" class='btn btn-icon btn-bg-light btn-active-text-primary btn-sm m-1'>
                             <span class='bi bi-file-text ' aria-hidden='true'></span>
                         </a>`;
-                        return `${x_detail}`;
+                        let x_kelengkapan = `<a data-id="${data}" title='Kelengkapan' data-toggle="modal" data-target="#form_kelengkapan"
+                            aria-label="Close" data-dismiss="modal" class='btn btn-icon btn-bg-light btn-active-text-primary btn-sm m-1'>
+                            <span class='bi bi-check-circle' aria-hidden='true'></span>
+                        </a>`;
+                        return `${x_detail} ${x_kelengkapan}`;
                     },
                     orderable: false,
                     searchable: false,

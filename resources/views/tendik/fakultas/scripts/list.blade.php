@@ -127,20 +127,21 @@
                                 </a>`;
                         return `${x_detail} ${x_edit}`
                     },
-                    orderable: true,
-                    searchable: true,
+                    orderable: false,
+                    searchable: false,
                 },
                 {
                     data: "nama_fakultas",
                     name: "nama_fakultas"
                 },
-                // {
-                //     data: "nama_dekan",
-                //     name: "nama_dekan"
-                // },
                 {
                     data: "singkatan",
                     name: "singkatan"
+                },
+                {
+                    data: "nama_dekan",
+                    name: "nama_dekan"
+
                 },
                 {
                     data: "aktif",

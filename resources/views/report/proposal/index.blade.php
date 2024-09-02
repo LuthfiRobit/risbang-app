@@ -100,6 +100,7 @@
         </div>
     </div>
     @include('report.proposal.detail')
+    @include('report.proposal.kelengkapan')
 @endsection
 
 @section('script-for-this-page')
@@ -121,4 +122,5 @@
 
     @include('report.proposal.scripts.list')
     @include('report.proposal.scripts.detail')
+    @include('report.proposal.scripts.kelengkapan')
 @endsection

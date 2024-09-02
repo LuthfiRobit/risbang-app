@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('tanggal_akhir')->nullable();
             $table->string('nama_deadline_proposal')->nullable();
             $table->enum('jenis', ['Penelitian', 'Pengabdian', 'Prosiding', 'Buku', 'Laporan', 'Haki'])->nullable();
-            $table->enum('keterangan', ['Proposal', 'Kemajuan', 'Akhir', 'Luaran'])->nullable();
+            $table->enum('keterangan', ['Proposal', 'Pelaksanaan', 'Kemajuan', 'Akhir', 'Luaran'])->nullable();
             $table->text('deskripsi')->nullable();
             $table->enum('aktif', ['y', 't'])->default('t');
             $table->timestamps();

@@ -15,8 +15,14 @@ class ReviewKemajuanProposal extends Model
     protected $primaryKey   = 'id_review_kemajuan_proposal';
 
     protected $fillable     = [
-        'kemajuan_proposal_id', 'reviewer_id', 'komen', 'skor_publikasi', 'skor_pemakalah',
-        'skor_bahan', 'skor_ttg', 'nilai'
+        'kemajuan_proposal_id',
+        'reviewer_id',
+        'komen',
+        'skor_publikasi',
+        'skor_pemakalah',
+        'skor_bahan',
+        'skor_ttg',
+        'nilai'
     ];
 
     /**

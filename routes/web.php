@@ -30,6 +30,7 @@ use App\Http\Controllers\Master\TahunAkademikController;
 use App\Http\Controllers\Proposal\AkhirProposalController;
 use App\Http\Controllers\Proposal\KemajuanProposalController;
 use App\Http\Controllers\Proposal\LuaranProposalController;
+use App\Http\Controllers\Proposal\PelaksanaanProposalController;
 use App\Http\Controllers\Proposal\ProposalController;
 use App\Http\Controllers\Proposal\ProposalLuaranController;
 use App\Http\Controllers\Proposal\ProposalPenelitianController;
@@ -39,8 +40,11 @@ use App\Http\Controllers\Report\ReportArsipBukuController;
 use App\Http\Controllers\Report\ReportArsipController;
 use App\Http\Controllers\Report\ReportArsipHakiController;
 use App\Http\Controllers\Report\ReportArsipJurnalController;
+use App\Http\Controllers\Report\ReportArsipProdukController;
+use App\Http\Controllers\Report\ReportArsipPrototypeController;
 use App\Http\Controllers\Report\ReportKemajuanController;
 use App\Http\Controllers\Report\ReportLuaranController;
+use App\Http\Controllers\Report\ReportPelaksanaanController;
 use App\Http\Controllers\Report\ReportProposalController;
 use App\Http\Controllers\Review\ReviewAkhirController;
 use App\Http\Controllers\Review\ReviewKemajuanController;
@@ -48,6 +52,8 @@ use App\Http\Controllers\Review\ReviewLuaranController;
 use App\Http\Controllers\Review\ReviewProposalController;
 use App\Http\Controllers\Roadmap\RoadmapDosenController;
 use App\Http\Controllers\Roadmap\RoadmapProdiController;
+use App\Http\Controllers\Surat\SuratMoaController;
+use App\Http\Controllers\Surat\SuratTugasController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -174,6 +180,8 @@ Route::middleware(['auth', 'user.role:admin'])->prefix('tendik')->name('tendik.'
         Route::put('/{id}/update', [ProdiController::class, 'update'])->name('update');
         Route::post('/update/multiple', [ProdiController::class, 'updateMultiple'])->name('update.multiple');
         Route::get('/byfakultas/{id}', [ProdiController::class, 'byFakultas'])->name('by.fakultas');
+        Route::post('/import-excel', [ProdiController::class, 'importExcel'])->name('import.excel');
+        Route::get('/export/excel', [ProdiController::class, 'exportExcel'])->name('export.excel');
     });
 
     Route::prefix('dosen')->name('dosen.')->group(function () {
@@ -263,11 +271,15 @@ Route::middleware(['auth', 'user.role:dosen,admin,reviewer'])->prefix('proposal'
         Route::prefix('penelitian')->name('penelitian.')->group(function () {
             Route::get('/{id}', [ProposalPenelitianController::class, 'show'])->name('show');
             Route::post('/store', [ProposalPenelitianController::class, 'store'])->name('store');
+            Route::get('/surat-tugas/{id}', [ProposalPenelitianController::class, 'suratTugas'])->name('surat.tugas');
+            Route::get('/surat-moa/{id}', [ProposalPenelitianController::class, 'suratMoa'])->name('surat.moa');
         });
 
         Route::prefix('pengabdian')->name('pengabdian.')->group(function () {
             Route::get('/{id}', [ProposalPengabdianController::class, 'show'])->name('show');
             Route::post('/store', [ProposalPengabdianController::class, 'store'])->name('store');
+            Route::get('/surat-tugas/{id}', [ProposalPengabdianController::class, 'suratTugas'])->name('surat.tugas');
+            Route::get('/surat-moa/{id}', [ProposalPengabdianController::class, 'suratMoa'])->name('surat.moa');
         });
 
         Route::prefix('luaran')->name('luaran.')->group(function () {
@@ -315,7 +327,33 @@ Route::middleware(['auth', 'user.role:dosen,admin,reviewer'])->prefix('proposal'
         Route::get('/deadline/{id}', [LuaranProposalController::class, 'deadline'])->name('deadline');
         Route::get('/rekap/{id}', [LuaranProposalController::class, 'rekap'])->name('rekap');
     });
+
+    Route::prefix('pelaksanaan')->name('pelaksanaan.')->group(function () {
+        Route::get('/', [ProposalController::class, 'indexPelaksanaan'])->name('index');
+        Route::get('/list', [ProposalController::class, 'listPelaksanaan'])->name('list');
+        Route::get('/overview/{id}', [ProposalController::class, 'overviewPelaksanaan'])->name('overview');
+        Route::get('/show-all/{id}', [PelaksanaanProposalController::class, 'showAll'])->name('show.all');
+        Route::get('/show/{id}', [PelaksanaanProposalController::class, 'show'])->name('show');
+        Route::post('/store', [PelaksanaanProposalController::class, 'store'])->name('store');
+        Route::get('/deadline/{id}', [PelaksanaanProposalController::class, 'deadline'])->name('deadline');
+        Route::get('/list-history/{id}', [PelaksanaanProposalController::class, 'listHistory'])->name('list.history');
+    });
 });
+
+Route::middleware(['auth', 'user.role:dosen,admin,reviewer'])->prefix('surat')->name('surat.')->group(
+    function () {
+
+        Route::prefix('tugas')->name('tugas.')->group(function () {
+            Route::get('download/{id}', [SuratTugasController::class, 'download'])->name('download');
+            Route::post('store', [SuratTugasController::class, 'store'])->name('store');
+            Route::post('upload', [SuratTugasController::class, 'upload'])->name('upload');
+        });
+
+        Route::prefix('moa')->name('moa.')->group(function () {
+            Route::post('upload', [SuratMoaController::class, 'upload'])->name('upload');
+        });
+    }
+);
 
 Route::middleware(['auth', 'user.role:dosen,reviewer,admin'])->prefix('review')->name('review.')->group(function () {
 
@@ -575,6 +613,20 @@ Route::middleware(['auth'])->prefix('report')->name('report.')->group(function (
                 Route::get('/show/{id}', [ReportArsipHakiController::class, 'show'])->name('show');
                 Route::get('/report', [ReportArsipHakiController::class, 'getReportData'])->name('by.ta');
             });
+
+            Route::prefix('produk')->name('produk.')->group(function () {
+                Route::get('/', [ReportArsipProdukController::class, 'index'])->name('index');
+                Route::get('/list', [ReportArsipProdukController::class, 'list'])->name('list');
+                Route::get('/show/{id}', [ReportArsipProdukController::class, 'show'])->name('show');
+                Route::get('/report', [ReportArsipProdukController::class, 'getReportData'])->name('by.ta');
+            });
+
+            Route::prefix('prototype')->name('prototype.')->group(function () {
+                Route::get('/', [ReportArsipPrototypeController::class, 'index'])->name('index');
+                Route::get('/list', [ReportArsipPrototypeController::class, 'list'])->name('list');
+                Route::get('/show/{id}', [ReportArsipPrototypeController::class, 'show'])->name('show');
+                Route::get('/report', [ReportArsipPrototypeController::class, 'getReportData'])->name('by.ta');
+            });
         });
     });
 
@@ -584,6 +636,7 @@ Route::middleware(['auth'])->prefix('report')->name('report.')->group(function (
             Route::get('/', [ReportProposalController::class, 'index'])->name('index');
             Route::get('/list', [ReportProposalController::class, 'list'])->name('list');
             Route::get('/show/{id}', [ReportProposalController::class, 'show'])->name('show');
+            Route::get('/kelengkapan/{id}', [ReportProposalController::class, 'kelengkapan'])->name('kelengkapan');
             Route::get('/report', [ReportProposalController::class, 'getReportData'])->name('by.ta');
         });
 
@@ -603,6 +656,12 @@ Route::middleware(['auth'])->prefix('report')->name('report.')->group(function (
             Route::get('/', [ReportLuaranController::class, 'index'])->name('index');
             Route::get('/list', [ReportLuaranController::class, 'list'])->name('list');
             Route::get('/show/{id}', [ReportLuaranController::class, 'show'])->name('show');
+        });
+
+        Route::prefix('pelaksanaan')->name('pelaksanaan.')->group(function () {
+            Route::get('/', [ReportPelaksanaanController::class, 'index'])->name('index');
+            Route::get('/list', [ReportPelaksanaanController::class, 'list'])->name('list');
+            Route::get('/show/{id}', [ReportPelaksanaanController::class, 'show'])->name('show');
         });
     });
 });

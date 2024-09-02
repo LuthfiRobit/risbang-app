@@ -95,7 +95,7 @@ class ReportLuaranController extends Controller
                 'judul' => $r->judul,
                 'pelaksanaan' => $r->tahun_pelaksanaan,
                 'jenis' => $r->jenis,
-                'status' => $r->status_review
+                'status' => $r->status_review ? $r->status_review : 'pengajuan'
             ];
         });
 
@@ -129,11 +129,13 @@ class ReportLuaranController extends Controller
                 'luaran_proposal.issn',
                 'luaran_proposal.file_luaran',
                 'tahun_akademik.nama_tahun_akademik',
+                'review_luaran_proposal.nilai',
                 'dosen.nama_dosen',
                 'prodi.nama_prodi',
                 'fakultas.nama_fakultas'
             )
             ->leftJoin('proposal', 'proposal.id_proposal', '=', 'luaran_proposal.proposal_id')
+            ->leftJoin('review_luaran_proposal', 'review_luaran_proposal.luaran_proposal_id', '=', 'luaran_proposal.id_luaran_proposal')
             ->leftJoin('tahun_akademik', 'tahun_akademik.id_tahun_akademik', '=', 'luaran_proposal.tahun_akademik_id')
             ->leftJoin('dosen', 'dosen.id_dosen', '=', 'luaran_proposal.dosen_id')
             ->leftJoin('prodi', 'prodi.id_prodi', '=', 'dosen.prodi_id')
@@ -151,7 +153,7 @@ class ReportLuaranController extends Controller
             'id_luaran_proposal' => Crypt::encryptString($query->id_luaran_proposal),
             'judul' => $query->judul,
             'jenis_proposal' => $query->jenis,
-            'status' => $query->status_review,
+            'status' =>  $query->status_review ? $query->status_review : 'pengajuan',
             'jenis' => $query->jenis_publikasi,
             'penerbit' => $query->penerbit,
             'volume' => $query->volume,
@@ -159,7 +161,8 @@ class ReportLuaranController extends Controller
             'issn' => $query->issn,
             'pelaksanaan' => $query->tahun_pelaksanaan,
             'link' => $query->link,
-            'file' => asset('files/luaranProposal/' . $query->file_luaran),
+            'file' => $query->file_luaran ? asset('files/luaranProposal/' . $query->file_luaran) : null,
+            'nilai' => $query->nilai,
             'tahun_akademik' => $query->nama_tahun_akademik,
             'dosen' => $query->nama_dosen,
             'prodi' => $query->nama_prodi,

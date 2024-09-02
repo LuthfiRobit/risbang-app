@@ -10,41 +10,73 @@
                     <h3>Data not found</h3>
                 </div>
                 <div id="show_data" style="display: none;">
-                    <div class="d-flex flex-column fv-row mb-2">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>Tahun Akademik</span>
-                        </label>
-                        <p id="show_data_tahun_akademik"></p>
-                    </div>
-                    <div class="d-flex flex-column fv-row mb-2">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>Tanggal Deadline</span>
-                        </label>
-                        <p id="show_data_tanggal_akhir"></p>
-                    </div>
-                    <div class="d-flex flex-column fv-row mb-2">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>Jenis Deadline</span>
-                        </label>
-                        <p id="show_data_jenis"></p>
-                    </div>
-                    <div class="d-flex flex-column fv-row mb-2">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>Keterangan Deadline</span>
-                        </label>
-                        <p id="show_data_keterangan"></p>
-                    </div>
-                    <div class="d-flex flex-column fv-row mb-2">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>Deskripsi</span>
-                        </label>
-                        <p id="show_data_deskripsi"></p>
-                    </div>
-                    <div class="d-flex flex-column fv-row mb-2">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>Aktif ?</span>
-                        </label>
-                        <p id="show_data_aktif"></p>
+                    <div class="row mb-3">
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">Tahun Akademik</span>
+                                </div>
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_data_tahun_akademik"
+                                        class="mb-0"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">Tanggal Deadline</span>
+                                </div>
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_data_tanggal_akhir"
+                                        class="mb-0"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">Jenis Deadline</span>
+                                </div>
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_data_jenis"
+                                        class="mb-0"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">Keterangan Deadline</span>
+                                </div>
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_data_keterangan"
+                                        class="mb-0"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">Deskripsi</span>
+                                </div>
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_data_deskripsi"
+                                        class="mb-0"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">Aktif ?</span>
+                                </div>
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_data_aktif"
+                                        class="mb-0"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

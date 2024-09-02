@@ -15,6 +15,7 @@
                     $("#show_data_tahun_awal").text(response.data.tahun_awal);
                     $("#show_data_tahun_akhir").text(response.data.tahun_akhir);
                     $("#show_data_nama").text(response.data.nama_tahun_akademik);
+                    $("#show_data_dana").text(response.data.dana_maksimal ?? '-');
                     $("#show_data_aktif").text(text);
                     $("#null_data").hide();
                     $("#show_data").show();

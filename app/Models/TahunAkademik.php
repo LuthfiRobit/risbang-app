@@ -14,13 +14,14 @@ class TahunAkademik extends Model
 
     protected $primaryKey = 'id_tahun_akademik';
 
-    protected $fillable = ['tahun_awal', 'tahun_akhir', 'nama_tahun_akademik', 'aktif', 'buku', 'haki', 'nilai_baru', 'token_aktifasi_tahun_akademik'];
+    protected $fillable = ['tahun_awal', 'tahun_akhir', 'nama_tahun_akademik', 'dana_maksimal', 'aktif', 'buku', 'haki', 'nilai_baru', 'token_aktifasi_tahun_akademik'];
 
     protected $casts = [
         'id_tahun_akademik' => 'integer',
         'tahun_awal' => 'integer',
         'tahun_akhir' => 'integer',
         'nama_tahun_akademik' => 'string',
+        'dana_maksimal' => 'integer',
         'aktif' => 'string',
         'buku' => 'string',
         'haki' => 'string',

@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Master;
 
+use App\Exports\ProdiExport;
 use App\Http\Controllers\Controller;
+use App\Imports\ProdiImport;
 use App\Models\Fakultas;
 use App\Models\Prodi;
 use App\Services\PermissionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 class ProdiController extends Controller
@@ -28,54 +32,44 @@ class ProdiController extends Controller
 
     public function list(Request $request)
     {
-        $data = Prodi::select(
+        $query = Prodi::select(
             'prodi.id_prodi',
-            'fakultas.id_fakultas',
-            'fakultas.singkatan as singkatan_fakultas',
+            'fakultas.nama_fakultas',
             'prodi.nama_prodi',
             'fakultas.nama_fakultas',
-            // 'prodi.nama_kaprodi',
             'prodi.singkatan',
             'prodi.aktif',
-            // 'dosen.nama_dosen as nama_kaprodi'
+            'users.id_user',
+            'dosen.nama_dosen'
         )
             ->leftJoin('fakultas', 'fakultas.id_fakultas', '=', 'prodi.fakultas_id')
-            // ->leftJoin('users', 'users.id_user', '=', 'prodi.user_id')
-            // ->leftJoin('dosen', 'dosen.user_id', '=', 'users.id_user')
+            ->leftJoin('users', 'users.id_user', '=', 'prodi.user_id')
+            ->leftJoin('dosen', 'dosen.user_id', '=', 'users.id_user')
             ->orderBy('prodi.created_at', 'DESC');
 
         if ($request->filter_fakultas) {
-            $data->where('prodi.fakultas_id', $request->filter_fakultas);
+            $query->where('prodi.fakultas_id', $request->filter_fakultas);
         }
 
         if ($request->filter_aktifasi) {
-            $data->where('prodi.aktif', $request->filter_aktifasi);
+            $query->where('prodi.aktif', $request->filter_aktifasi);
         }
 
-        // $perPage = $request->input('length', 10);
-        // $start = $request->input('start', 0);
-        // $draw = $request->input('draw', 1);
-
-        // $totalRecords = $data->count();
-        // $filteredRecords = $totalRecords; // Sesuaikan jika ada filter tambahan
-
-        // $result = $data->offset($start)->limit($perPage)->get();
-        $result = $data->get();
+        $result = $query->get()->map(function ($q) {
+            return [
+                'cek' => Crypt::encryptString($q->id_prodi),
+                'action' => Crypt::encryptString($q->id_prodi),
+                'nama_fakultas' => $q->nama_fakultas,
+                'nama_prodi' => $q->nama_prodi,
+                'singkatan' => $q->singkatan,
+                'nama_kaprodi' => $q->nama_dosen ?  $q->nama_dosen : 'belum ditentukan',
+                'aktif' => $q->aktif
+            ];
+        });
 
         return DataTables::of($result)
             ->addIndexColumn()
-            ->addColumn('cek', function ($model) {
-                return Crypt::encryptString($model->id_prodi);
-            })
-            ->addColumn('action', function ($model) {
-                return Crypt::encryptString($model->id_prodi);
-            })
-            // ->with([
-            //     // 'draw' => $draw,
-            //     'recordsTotal' => $totalRecords,
-            //     'recordsFiltered' => $filteredRecords,
-            // ])
-            ->make(true);
+            ->toJson();
     }
 
     public function show(string $id)
@@ -188,6 +182,55 @@ class ProdiController extends Controller
             ];
 
             return response()->json($response, 400);
+        }
+    }
+
+    public function importExcel(Request $request)
+    {
+        // Validasi input file
+        $validateData = $this->permissionService->validateData($request->all(), [
+            'file' => 'required|mimes:xlsx,xls'
+        ], [
+            'required' => 'Input :attribute wajib diisi.',
+            'mimes' => 'Input :attribute harus :values.'
+        ]);
+
+        if ($validateData !== null) {
+            return response()->json(['success' => false, 'message' => $validateData->getMessage()], 422);
+        }
+
+        try {
+            $file = $request->file('file');
+            $import = new ProdiImport();
+            $import->import($file);
+
+            // Ambil kesalahan dan data yang berhasil dari ProdiImport
+            $failures = $import->failures();
+            $successfulRows = $import->successfulRows(); // Method baru untuk data yang berhasil
+
+            // Jika ada kegagalan
+            if ($failures || $successfulRows) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Impor selesai dengan beberapa hasil.',
+                    'failures' => $failures, // Data yang gagal
+                    'successes' => $successfulRows // Data yang berhasil
+                ], 200);
+            }
+
+            return response()->json(['success' => true, 'message' => 'Impor berhasil tanpa kesalahan!'], 200);
+        } catch (\Exception $e) {
+            Log::error('Import Excel error: ' . $e->getMessage());
+            return response()->json(['success' => false, 'message' => 'Impor gagal: ' . $e->getMessage()], 500);
+        }
+    }
+
+    public function exportExcel()
+    {
+        try {
+            return Excel::download(new ProdiExport, 'data_prodi.xlsx');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('fail', 'Export gagal');
         }
     }
 }

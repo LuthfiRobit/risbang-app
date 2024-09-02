@@ -72,3 +72,36 @@
         </form>
     </div>
 </div>
+
+<div class="modal fade" id="form_import" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <form method="post" id="bt_submit_import" enctype="multipart/form-data">
+            {{-- action="{{ route('tendik.dosen.import.excel') }}"> --}}
+            @csrf
+            {{-- @method('POST') --}}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Import</h5>
+                    <a type="button" class="badge badge-dark" data-dismiss="modal" aria-label="Close">X</a>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <span class="required">File Excel</span>
+                            </label>
+                            <input type="file" class="form-control form-control-sm" name="file" id="file"
+                                placeholder="Masukkan file excel" accept=".xlsx, .xls" required />
+                            <ul id="error-list" class="list-unstyled text-danger"></ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal" aria-label="Close">Tutup
+                    </button>
+                    <button type="submit" class="btn btn-sm btn-primary">Import</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

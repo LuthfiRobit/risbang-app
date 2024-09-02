@@ -11,6 +11,7 @@
                     $("#edit_data_tahun_awal").val(response.data.tahun_awal);
                     $("#edit_data_tahun_akhir").val(response.data.tahun_akhir);
                     $("#edit_data_nama_tahun_akademik").val(response.data.nama_tahun_akademik);
+                    $("#edit_data_dana_maksimal").val(response.data.dana_maksimal);
                     $("#edit_data_aktifasi").val(response.data.aktif);
                     $('.selectpicker').selectpicker('refresh').selectpicker('render');
                 }
@@ -44,6 +45,7 @@
                     "tahun_awal": $("#edit_data_tahun_awal").val(),
                     "tahun_akhir": $("#edit_data_tahun_akhir").val(),
                     "nama_tahun_akademik": $("#edit_data_nama_tahun_akademik").val(),
+                    "dana_maksimal": $("#edit_data_dana_maksimal").val(),
                     "aktifasi": $("#edit_data_aktifasi").val(),
                 };
                 DataManager.putData(update.replace(':id', id), input).then(response => {

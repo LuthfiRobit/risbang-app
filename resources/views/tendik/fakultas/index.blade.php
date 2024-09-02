@@ -1,5 +1,5 @@
 @extends('layout.main4')
-
+@section('title-one', 'Tendik | Data Fakultas')
 @section('css-for-this-page')
     <link rel="stylesheet" href="{{ asset('assets/plugins/custom/datatables/dataTables.bootstrap5.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/custom/datatables/responsive.bootstrap.min.css') }}">
@@ -10,7 +10,6 @@
 @endsection
 
 @section('content')
-    {{-- <div class="content flex-column-fluid"> --}}
     <div class="card mb-xl-8 mb-5 border-2">
         <div class="card-header">
             <h3 class="card-title align-items-start flex-column">
@@ -24,20 +23,28 @@
             </div>
         </div>
         <div class="card-body py-3">
-            <div class="notice d-flex bg-light-primary border-primary mb-3 rounded border border-dashed p-3">
-                <div class="d-flex flex-stack">
-                    <div class="row">
+            <div class="bg-light-primary border-primary mb-3 rounded border border-dashed p-3">
+                <div class="row g-2">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
                         <span class="fs-12 text-gray-700">Berikut ini adalah daftar dari Fakultas data.
                         </span>
-                        <div class="row">
+                        <div class="row mb-2">
                             <span style="color: #a1081f; font-weight: 500;">Data Fakultas tidak aktif</span>
                             <span style="color: #0b7a44 ; font-weight: 500;">Data Fakultas aktif</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <span class="fs-12 text-gray-700">Catatan :
+                        </span>
+                        <div class="row">
+                            <span style="color: #a1081f; font-weight: 500;">Tentukan dekan pada menu <a
+                                    href="{{ route('setting.dosen.management.index') }}">Dosen
+                                    Management</a></span>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="text-center">
-                {{-- {{ dd(Request::route()->getPrefix() == Request::) }} --}}
                 <button class="btn btn-sm btn-primary" id="active" title='Aktifkan Data'>Aktif</button>
                 <button class="btn btn-sm btn-danger" id="block" title='Non Aktifkan Data'>Tidak Aktif</button>
             </div>
@@ -55,20 +62,17 @@
                             </th>
                             <th class="min-w-125px">Actions</th>
                             <th class="min-w-125px">Fakultas</th>
-                            {{-- <th class="min-w-125px">Dekan</th> --}}
                             <th class="min-w-125px">Singkatan</th>
+                            <th class="min-w-125px">Dekan</th>
                             <th class="min-w-125px">Status</th>
                         </tr>
                     </thead>
                     <tbody class="text-gray-800 fw-bolder">
                     </tbody>
                 </table>
-
             </div>
-
         </div>
     </div>
-    {{-- </div> --}}
     @include('tendik.fakultas.create')
     @include('tendik.fakultas.detail')
     @include('tendik.fakultas.edit')

@@ -5,6 +5,9 @@
         const button = $(e.relatedTarget);
         id = button.data("id");
         const detail = '{{ route('roadmap.prodi.show', [':id']) }}';
+
+        // Menampilkan tombol simpan review
+        $("#btn_edit_simpan").show();
         DataManager.fetchData(detail.replace(':id', id))
             .then(function(response) {
                 if (response.success) {
@@ -12,8 +15,11 @@
                     $("#edit_jenis").val(response.data.jenis);
                     $("#show_review").val(response.data.komentar);
                     $("#show_status").text(response.data.status);
+                    // Mengatur visibilitas tombol berdasarkan status
                     if (response.data.status == 'Acc') {
-                        $("#btn_edit_simpan").remove();
+                        $("#btn_edit_simpan").hide(); // Menyembunyikan tombol jika statusnya 'Acc'
+                    } else {
+                        $("#btn_edit_simpan").show(); // Menampilkan tombol jika statusnya bukan 'Acc'
                     }
                     $('.selectpicker').selectpicker('refresh').selectpicker('render');
                 }
@@ -38,7 +44,17 @@
             if (result.value) {
                 const update = '{{ route('roadmap.prodi.update', [':id']) }}';
                 const formData = new FormData();
-                formData.append("edit_rentan", $("#edit_rentan").val());
+
+                // Ambil ID rentan dan nama rentan
+                const rentanSelect = $("#edit_rentan");
+                const selectedRentan = rentanSelect.find("option:selected");
+                const rentanId = selectedRentan.val();
+                const rentanNama = selectedRentan.data("nama");
+
+                formData.append("edit_rentan", rentanId);
+                formData.append("rentan_nama", rentanNama); // Tambahkan nama rentan ke formData
+
+                // formData.append("edit_rentan", $("#edit_rentan").val());
                 formData.append("edit_jenis", $("#edit_jenis").val());
                 formData.append("edit_file", $("#edit_file")[0].files[0]);
                 if ($("#edit_file")[0].files.length > 0) {
