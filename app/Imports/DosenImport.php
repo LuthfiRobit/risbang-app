@@ -2,7 +2,10 @@
 
 namespace App\Imports;
 
+use App\Models\BidangIlmu;
 use App\Models\Dosen;
+use App\Models\Kepakaran;
+use App\Models\Prodi;
 use App\Models\User;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -24,36 +27,76 @@ class DosenImport implements ToCollection, WithHeadingRow, SkipsOnFailure, WithB
 {
     use Importable, SkipsFailures;
 
-    // public $failures = [];
+    protected $successfulRows = [];
+    protected $failures = [];
 
-    /**
-     * Process each row from the Excel file.
-     */
     public function collection(Collection $rows)
     {
-        foreach ($rows as $row) {
-            // Skip row if essential columns are missing
-            if (empty($row['email']) || empty($row['nidn']) || empty($row['no_tlpn'])) {
-                Log::warning('Skipping row due to missing required fields:', ['row' => $row]);
-                continue; // Skip this row
-            }
+        foreach ($rows as $index => $row) {
+            $row = $row->toArray();
+            $errors = [];
 
-            // Check if 'nidn' is valid (example validation)
+            // Validasi kolom wajib
+            if (empty($row['nik'])) {
+                $errors[] = 'nik : kosong';
+            }
             if (empty($row['nidn'])) {
-                Log::warning('Skipping row due to invalid NIDN:', ['row' => $row]);
-                continue; // Skip this row
+                $errors[] = 'nidn : kosong';
+            }
+            if (empty($row['no_tlpn'])) {
+                $errors[] = 'no_tlpn : kosong';
+            }
+            if (empty($row['email'])) {
+                $errors[] = 'email : kosong';
+            }
+            if (empty($row['nama_dosen'])) {
+                $errors[] = 'nama_dosen : kosong';
+            }
+            if (empty($row['prodi_id'])) {
+                $errors[] = 'prodi_id : kosong';
             }
 
-            // Skip if the email already exists to avoid duplication
+            // Validasi prodi_id
+            if (!Prodi::where('id_prodi', $row['prodi_id'])->exists()) {
+                $errors[] = 'prodi_id : tidak valid';
+            }
+
+            // Validasi uniqueness
             if (User::where('email', $row['email'])->exists()) {
-                Log::warning('Email already exists: ' . $row['email']);
-                continue; // Skip this row
+                $errors[] = 'email : sudah ada';
+            }
+            if (Dosen::where('nik', $row['nik'])->exists()) {
+                $errors[] = 'nik : sudah ada';
+            }
+            if (Dosen::where('nidn', $row['nidn'])->exists()) {
+                $errors[] = 'nidn : sudah ada';
+            }
+            if (Dosen::where('no_tlpn', $row['no_tlpn'])->exists()) {
+                $errors[] = 'no_tlpn : sudah ada';
             }
 
-            // Start database transaction
+            // Validasi bidang_ilmu_id dan kepakaran_id jika diisi
+            if (!empty($row['bidang_ilmu_id']) && !BidangIlmu::where('id_bidang_ilmu', $row['bidang_ilmu_id'])->exists()) {
+                $errors[] = 'bidang_ilmu_id : tidak valid';
+            }
+            if (!empty($row['kepakaran_id']) && !Kepakaran::where('id_kepakaran', $row['kepakaran_id'])->exists()) {
+                $errors[] = 'kepakaran_id : tidak valid';
+            }
+
+            // Jika ada kesalahan, tambahkan ke kegagalan dan masukkan nomor baris
+            if (!empty($errors)) {
+                $this->failures[] = [
+                    'row' => $row,
+                    'row_number' => $index + 2, // +2 untuk mengimbangi heading row
+                    'errors' => $errors
+                ];
+                continue;
+            }
+
+            // Jika lolos validasi, simpan data ke dalam database
             DB::beginTransaction();
             try {
-                // Create user
+                // Buat user
                 $user = User::create([
                     'email' => $row['email'],
                     'email_verified_at' => now(),
@@ -64,59 +107,59 @@ class DosenImport implements ToCollection, WithHeadingRow, SkipsOnFailure, WithB
                     'dosen_role' => 'dosen',
                 ]);
 
-                // If the user is successfully created, create the related dosen data
+                // Jika user berhasil dibuat, simpan data dosen
                 if ($user) {
                     $dosenData = [
                         'user_id' => $user->id_user,
-                        'prodi_id' => $row['prodi_id'] ?? null,
+                        'prodi_id' => $row['prodi_id'],
                         'bidang_ilmu_id' => $row['bidang_ilmu_id'] ?? null,
                         'kepakaran_id' => $row['kepakaran_id'] ?? null,
                         'nidn' => $row['nidn'],
-                        'nik' => $row['nik'] ?? null,
+                        'nik' => $row['nik'],
                         'no_tlpn' => $row['no_tlpn'],
                         'email' => $row['email'],
-                        'nama_dosen' => $row['nama_dosen'] ?? null,
+                        'nama_dosen' => $row['nama_dosen'],
                         'jk' => $row['jk'] ?? null,
                         'kode_pos' => $row['kode_pos'] ?? null,
                         'alamat' => $row['alamat'] ?? null,
                         'status_dosen' => $row['status_dosen'] ?? null,
-                        'jabatan' => $row['jabatan'] ?? null,
+                        'jabatan' => $row['jabatan'] ?? 'lecture',
                         'status_serdos' => $row['status_serdos'] ?? null,
                     ];
 
-                    // Log the data before saving
-                    Log::info('Saving Dosen data:', ['dosen_data' => $dosenData]);
-
-                    // Save dosen data
                     Dosen::create($dosenData);
-                } else {
-                    // Handle case where user creation fails
-                    Log::error('User creation failed', ['row' => $row]);
-                    DB::rollBack(); // Rollback the transaction
-                    continue; // Skip to the next row
                 }
 
-                // Commit the transaction if everything is successful
+                // Simpan data yang berhasil
                 DB::commit();
+                $this->successfulRows[] = $dosenData;
             } catch (\Exception $e) {
-                // Rollback the transaction in case of error
                 DB::rollBack();
+                $this->failures[] = [
+                    'row' => $row,
+                    'row_number' => $index + 2, // Tambahkan nomor baris yang gagal
+                    'errors' => ['Database error: ' . $e->getMessage()]
+                ];
                 Log::error('Error inserting user or dosen:', ['error' => $e->getMessage(), 'row' => $row]);
             }
         }
     }
 
-    /**
-     * Batch insert size to optimize performance.
-     */
+    public function failures()
+    {
+        return $this->failures;
+    }
+
+    public function successfulRows()
+    {
+        return $this->successfulRows;
+    }
+
     public function batchSize(): int
     {
         return 100;
     }
 
-    /**
-     * Chunk size for reading to optimize performance.
-     */
     public function chunkSize(): int
     {
         return 100;

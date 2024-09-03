@@ -15,6 +15,26 @@
     <!--end::Card head-->
     <!--begin::Card body-->
     <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="notice d-flex bg-light-success border-success mb-3 rounded border border-dashed p-3">
+                    <div class="d-flex flex-stack">
+                        <div class="row">
+                            <span class="fs-12 text-gray-700">Catatan:</span>
+                            <div class="row">
+                                <span style="color: #a1081f; font-weight: 500;">- Klik edit untuk mengisi atau mengganti
+                                    tanggal dan tempat</span>
+                                <span style="color: #a1081f; font-weight: 500;">- Download surat tugas</span>
+                                <span style="color: #a1081f; font-weight: 500;">- Lakukan stempel secara manual di
+                                    LP2M</span>
+                                <span style="color: #a1081f; font-weight: 500;">- Upload surat berstempel dengan format
+                                    PDF</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row" id="show_surat_tugas" data-id="{{ Route::current()->parameter('id') }}">
             <div class="col-lg-12 col-md-12 col-sm-12" id="show_st_penelitian">
                 <div class="row">

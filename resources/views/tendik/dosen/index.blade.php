@@ -27,14 +27,27 @@
             </div>
         </div>
         <div class="card-body py-3">
-            <div class="notice d-flex bg-light-primary border-primary mb-3 rounded border border-dashed p-3">
-                <div class="d-flex flex-stack">
-                    <div class="row">
+            <div class=" bg-light-primary border-primary mb-3 rounded border border-dashed p-3">
+                <div class="row g-2">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
                         <span class="fs-12 text-gray-700">Berikut ini adalah daftar dari Dosen data.
                         </span>
                         <div class="row">
                             <span style="color: #a1081f; font-weight: 500;">Data Dosen tidak aktif</span>
                             <span style="color: #0b7a44 ; font-weight: 500;">Data Dosen aktif</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <span class="fs-12 text-gray-700">Catatan :
+                        </span>
+                        <div class="row">
+                            <span style="color: #0b7a44 ; font-weight: 500;">
+                                <a href="{{ asset('files/template/template_import_dosen_fix.xlsx') }}" target="_blank"
+                                    class="text-primary text-hover-success me-5 mb-2">
+                                    <span class="svg-icon svg-icon-4 me-1"><i class="bi bi-download"></i></span>Template
+                                    import dosen (Excel)
+                                </a>
+                            </span>
                         </div>
                     </div>
                 </div>

@@ -26,11 +26,11 @@
                                 <span style="color: #a1081f; font-weight: 500;">Silakan download surat pengantar dan
                                     lengkapi datanya sesuai tempat Penelitian dan Pengabdian</span>
                                 <span style="color: #0b7a44 ; font-weight: 500;">
-                                    <a href="#" target="_blank"
+                                    <a href="{{ asset('files/template/template_pengantar.docx') }}" target="_blank"
                                         class="d-flex align-items-center text-primary text-hover-success me-5 mb-2">
-                                        <span class="svg-icon svg-icon-4 me-1"><i
-                                                class="bi bi-download me-2"></i></span>
-                                        Template pengantar</a>
+                                        <span class="svg-icon svg-icon-4 me-1"><i class="bi bi-download"></i></span>
+                                        Template Surat Pengantar
+                                    </a>
                                 </span>
                             </div>
                         </div>

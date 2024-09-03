@@ -27,11 +27,11 @@
                                     upload kontrak/MoA penelitian atau pengabdian yang telah disetujui pada
                                     masing-masing form</span>
                                 <span style="color: #0b7a44 ; font-weight: 500;">
-                                    <a href="#" target="_blank"
+                                    <a href="{{ asset('files/template/template_kontrak.docx') }}" target="_blank"
                                         class="d-flex align-items-center text-primary text-hover-success me-5 mb-2">
-                                        <span class="svg-icon svg-icon-4 me-1"><i
-                                                class="bi bi-download me-2"></i></span>
-                                        Template kontrak/MoA</a>
+                                        <span class="svg-icon svg-icon-4 me-1"><i class="bi bi-download"></i></span>
+                                        Template Surat Kontrak / MoA
+                                    </a>
                                 </span>
                             </div>
                         </div>

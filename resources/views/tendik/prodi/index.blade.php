@@ -48,8 +48,15 @@
                             <span style="color: #0b7a44 ; font-weight: 500;">
                                 <a href="{{ route('tendik.prodi.export.excel') }}"
                                     class=" text-primary text-hover-success me-5 mb-2">
-                                    <span class="svg-icon svg-icon-4 me-1"><i class="bi bi-download"></i></span>Export Data
-                                    Prodi (Excel)
+                                    <span class="svg-icon svg-icon-4 me-1"><i class="bi bi-download"></i></span>Export data
+                                    prodi (Excel)
+                                </a>
+                            </span>
+                            <span style="color: #0b7a44 ; font-weight: 500;">
+                                <a href="{{ asset('files/template/template_import_prodi_fix.xlsx') }}" target="_blank"
+                                    class=" text-primary text-hover-success me-5 mb-2">
+                                    <span class="svg-icon svg-icon-4 me-1"><i class="bi bi-download"></i></span>Template
+                                    import prodi (Excel)
                                 </a>
                             </span>
                         </div>
