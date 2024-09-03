@@ -56,12 +56,15 @@ class TahunAkademikController extends Controller
             'tahun_awal' => 'required|before:tahun_akhir',
             'tahun_akhir' => 'required|after:tahun_awal',
             'nama_tahun_akademik' => 'required',
+            'dana_maksimal' => 'required|numeric|min:1000',
             'aktifasi' => 'required',
 
         ], [
             'required' => 'Input :attribute wajib diisi.',
             'before' => 'Input :attribute harus lebih kecil dari pada :attribute.',
             'after' => 'Input :attribute harus lebih besar dari pada :attribute.',
+            'min' => 'Input :attribute minimal :min.',
+            'numeric' => 'Input :attribute harus berupa angka.',
         ]);
 
         if ($validateData !== null) {
@@ -71,6 +74,7 @@ class TahunAkademikController extends Controller
         $save['tahun_akhir'] = $request->tahun_akhir;
         $save['tahun_awal'] = $request->tahun_awal;
         $save['nama_tahun_akademik'] = $request->nama_tahun_akademik;
+        $save['dana_maksimal'] = $request->dana_maksimal;
         $save['aktif'] = $request->aktifasi;
         // $save['buku'] = $request->buku;
         // $save['haki'] = $request->haki;
@@ -88,12 +92,15 @@ class TahunAkademikController extends Controller
             'tahun_awal' => 'required|before:tahun_akhir',
             'tahun_akhir' => 'required|after:tahun_awal',
             'nama_tahun_akademik' => 'required',
+            'dana_maksimal' => 'required|numeric|min:1000',
             'aktifasi' => 'required',
 
         ], [
             'required' => 'Input :attribute wajib diisi.',
             'before' => 'Input :attribute harus lebih kecil dari pada :attribute.',
             'after' => 'Input :attribute harus lebih besar dari pada :attribute.',
+            'min' => 'Input :attribute minimal :min.',
+            'numeric' => 'Input :attribute harus berupa angka.',
         ]);
 
         if ($validateData !== null) {
@@ -103,6 +110,7 @@ class TahunAkademikController extends Controller
         $update['tahun_akhir'] = $request->tahun_akhir;
         $update['tahun_awal'] = $request->tahun_awal;
         $update['nama_tahun_akademik'] = $request->nama_tahun_akademik;
+        $update['dana_maksimal'] = $request->dana_maksimal;
         $update['aktif'] = $request->aktifasi;
         // $update['buku'] = $request->buku;
         // $update['haki'] = $request->haki;

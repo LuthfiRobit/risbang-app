@@ -226,6 +226,15 @@
                                      </a>
                                  </div>
                                  <div class="menu-item">
+                                     <a class="menu-link {{ Request::routeIs('report.proposal.pelaksanaan.*') ? 'active' : '' }}"
+                                         href="{{ route('report.proposal.pelaksanaan.index') }}">
+                                         <span class="menu-bullet">
+                                             <span class="bullet bullet-dot"></span>
+                                         </span>
+                                         <span class="menu-title">Pelaksanaan</span>
+                                     </a>
+                                 </div>
+                                 <div class="menu-item">
                                      <a class="menu-link {{ Request::routeIs('report.proposal.kemajuan.*') ? 'active' : '' }}"
                                          href="{{ route('report.proposal.kemajuan.index') }}">
                                          <span class="menu-bullet">
@@ -314,7 +323,8 @@
                                              </a>
                                          </div>
                                          <div class="menu-item">
-                                             <a class="menu-link" href="#">
+                                             <a class="menu-link  {{ Request::routeIs('report.publikasi.luaran.prototype.*') ? 'active' : '' }}"
+                                                 href="{{ route('report.publikasi.luaran.prototype.index') }}">
                                                  <span class="menu-bullet">
                                                      <span class="bullet bullet-dot"></span>
                                                  </span>
@@ -322,7 +332,8 @@
                                              </a>
                                          </div>
                                          <div class="menu-item">
-                                             <a class="menu-link" href="#">
+                                             <a class="menu-link  {{ Request::routeIs('report.publikasi.luaran.produk.*') ? 'active' : '' }}"
+                                                 href="{{ route('report.publikasi.luaran.produk.index') }}">
                                                  <span class="menu-bullet">
                                                      <span class="bullet bullet-dot"></span>
                                                  </span>
@@ -362,7 +373,8 @@
                                      </a>
                                  </div>
                                  <div class="menu-item">
-                                     <a class="menu-link " href="#">
+                                     <a class="menu-link {{ Request::routeIs('proposal.pelaksanaan.*') ? 'active' : '' }}"
+                                         href="{{ route('proposal.pelaksanaan.index') }}">
                                          <span class="menu-bullet">
                                              <span class="bullet bullet-dot"></span>
                                          </span>

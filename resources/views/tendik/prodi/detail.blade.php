@@ -10,36 +10,64 @@
                     <h3>Data not found</h3>
                 </div>
                 <div id="show_data" style="display: none;">
-                    <div class="d-flex flex-column fv-row mb-2">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>Nama Fakultas</span>
-                        </label>
-                        <p id="show_data_nama_fakultas"></p>
+                    <div class="row mb-3">
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">Nama Fakultas</span>
+                                </div>
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_data_nama_fakultas"
+                                        class="mb-0"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">Nama Prodi</span>
+                                </div>
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_data_nama_prodi"
+                                        class="mb-0"></span>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">Kaprodi</span>
+                                </div>
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_data_nama_kaprodi"
+                                        class="mb-0"></span>
+                                </div>
+                            </div>
+                        </div> --}}
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">Singkatan</span>
+                                </div>
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_data_singkatan"
+                                        class="mb-0"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">Aktif ?</span>
+                                </div>
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_data_aktif"
+                                        class="mb-0"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="d-flex flex-column fv-row mb-2">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>Nama Prodi</span>
-                        </label>
-                        <p id="show_data_nama_prodi"></p>
-                    </div>
-                    {{-- <div class="d-flex flex-column fv-row mb-2">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>Kaprodi</span>
-                        </label>
-                        <p id="show_data_nama_kaprodi"></p>
-                    </div> --}}
-                    <div class="d-flex flex-column fv-row mb-2">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>Singkatan</span>
-                        </label>
-                        <p id="show_data_singkatan"></p>
-                    </div>
-                    <div class="d-flex flex-column fv-row mb-2">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>Aktif ?</span>
-                        </label>
-                        <p id="show_data_aktif"></p>
-                    </div>
+
                 </div>
             </div>
             <div class="modal-footer">

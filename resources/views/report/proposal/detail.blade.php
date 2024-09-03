@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Detail</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Detail Beserta Nilai Review</h5>
                 <a type="button" class="badge badge-dark" data-dismiss="modal" aria-label="Close">X</a>
             </div>
             <div class="modal-body">
@@ -11,107 +11,257 @@
                 </div>
                 <div id="show_data" style="display: none;">
                     <div class="row mb-3">
-                        <div class="col-sm-12 col-md-12 col-lg-4">
-                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                <span>Nama Dosen</span>
-                            </label>
-                            <p id="show_dosen"></p>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span class="fs-6 fw-bold">Nama Dosen</span>
+                                </div>
+                                <div class="col-9">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_dosen" class="mb-0"></span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-sm-12 col-md-12 col-lg-4">
-                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                <span>Program Studi</span>
-                            </label>
-                            <p id="show_prodi"></p>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span class="fs-6 fw-bold">Program Studi</span>
+                                </div>
+                                <div class="col-9">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_prodi" class="mb-0"></span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-sm-12 col-md-12 col-lg-4">
-                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                <span>Fakultas</span>
-                            </label>
-                            <p id="show_fakultas"></p>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span class="fs-6 fw-bold">Fakultas</span>
+                                </div>
+                                <div class="col-9">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_fakultas" class="mb-0"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                     <div class="row mb-3">
-                        <div class="col-sm-12 col-md-12 col-lg-6">
-                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                <span>Jenis</span>
-                            </label>
-                            <p id="show_jenis"></p>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span class="fs-6 fw-bold">Jenis</span>
+                                </div>
+                                <div class="col-9">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_jenis" class="mb-0"></span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-sm-12 col-md-12 col-lg-6">
-                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                <span>Status</span>
-                            </label>
-                            <p id="show_status"></p>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span class="fs-6 fw-bold">Status</span>
+                                </div>
+                                <div class="col-9">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_status" class="mb-0"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span class="fs-6 fw-bold">Rencana Dana</span>
+                                </div>
+                                <div class="col-9">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_dana" class="mb-0"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                     <div class="row mb-3">
-                        <div class="col-sm-12 col-md-4 col-lg-3">
-                            <span class="d-flex align-items-center fs-6 fw-bold mb-2">Judul : </span>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span class="fs-6 fw-bold">Judul</span>
+                                </div>
+                                <div class="col-9">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_judul" class="mb-0"></span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-sm-12 col-md-4 col-lg-9">
-                            <p id="show_judul"></p>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span class="fs-6 fw-bold">Nilai Judul</span>
+                                </div>
+                                <div class="col-9">
+                                    <span class="fs-6 fw-bold">:</span> <span class="fs-6 fw-bold" id="show_nilai_judul"
+                                        class="mb-0"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                     <div class="row mb-3">
-                        <div class="col-sm-12 col-md-4 col-lg-3">
-                            <span class="d-flex align-items-center fs-6 fw-bold mb-2">Abstrak : </span>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span class="fs-6 fw-bold">Abstrak</span>
+                                </div>
+                                <div class="col-9">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_abstrak" class="mb-0"></span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-sm-12 col-md-4 col-lg-9">
-                            <p id="show_abstrak"></p>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span class="fs-6 fw-bold">Nilai Abstrak</span>
+                                </div>
+                                <div class="col-9">
+                                    <span class="fs-6 fw-bold">:</span> <span class="fs-6 fw-bold"
+                                        id="show_nilai_abstrak" class="mb-0"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                     <div class="row mb-3">
-                        <div class="col-sm-12 col-md-4 col-lg-3">
-                            <span class="d-flex align-items-center fs-6 fw-bold mb-2">Kata Kunci : </span>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span class="fs-6 fw-bold">Kata Kunci</span>
+                                </div>
+                                <div class="col-9">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_katkun" class="mb-0"></span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-sm-12 col-md-4 col-lg-9">
-                            <p id="show_katkun"></p>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span class="fs-6 fw-bold">Nilai Kata Kunci</span>
+                                </div>
+                                <div class="col-9">
+                                    <span class="fs-6 fw-bold">:</span> <span class="fs-6 fw-bold"
+                                        id="show_nilai_katkun" class="mb-0"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                     <div class="row mb-3">
-                        <div class="col-sm-12 col-md-4 col-lg-3">
-                            <span class="d-flex align-items-center fs-6 fw-bold mb-2">Latar Belakang : </span>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span class="fs-6 fw-bold">Latar Belakang</span>
+                                </div>
+                                <div class="col-9">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_latbel" class="mb-0"></span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-sm-12 col-md-4 col-lg-9">
-                            <p id="show_latbel"></p>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span class="fs-6 fw-bold">Nilai Latar Belakang</span>
+                                </div>
+                                <div class="col-9">
+                                    <span class="fs-6 fw-bold">:</span> <span class="fs-6 fw-bold"
+                                        id="show_nilai_latbel" class="mb-0"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                     <div class="row mb-3">
-                        <div class="col-sm-12 col-md-4 col-lg-3">
-                            <span class="d-flex align-items-center fs-6 fw-bold mb-2">Metode : </span>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span class="fs-6 fw-bold">Metode</span>
+                                </div>
+                                <div class="col-9">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_metode" class="mb-0"></span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-sm-12 col-md-4 col-lg-9">
-                            <p id="show_metode"></p>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span class="fs-6 fw-bold">Nilai Metode</span>
+                                </div>
+                                <div class="col-9">
+                                    <span class="fs-6 fw-bold">:</span> <span class="fs-6 fw-bold"
+                                        id="show_nilai_metode" class="mb-0"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                     <div class="row mb-3">
-                        <div class="col-sm-12 col-md-4 col-lg-3">
-                            <span class="d-flex align-items-center fs-6 fw-bold mb-2">Rencana : </span>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span class="fs-6 fw-bold">Rencana</span>
+                                </div>
+                                <div class="col-9">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_rencana"
+                                        class="mb-0"></span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-sm-12 col-md-4 col-lg-9">
-                            <p id="show_rencana"></p>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span class="fs-6 fw-bold">Nilai Rencana</span>
+                                </div>
+                                <div class="col-9">
+                                    <span class="fs-6 fw-bold">:</span> <span class="fs-6 fw-bold"
+                                        id="show_nilai_rencana" class="mb-0"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                     <div class="row mb-3">
-                        <div class="col-sm-12 col-md-4 col-lg-3">
-                            <span class="d-flex align-items-center fs-6 fw-bold mb-2">Daftar Pustaka : </span>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span class="fs-6 fw-bold">Daftar Pustaka</span>
+                                </div>
+                                <div class="col-9">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_dapus" class="mb-0"></span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-sm-12 col-md-4 col-lg-9">
-                            <p id="show_dapus"></p>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span class="fs-6 fw-bold">Nilai Daftar Pustaka</span>
+                                </div>
+                                <div class="col-9">
+                                    <span class="fs-6 fw-bold">:</span> <span class="fs-6 fw-bold"
+                                        id="show_nilai_dapus" class="mb-0"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                     <div class="row mb-3">
-                        <div class="col-sm-12 col-md-4 col-lg-3">
-                            <span class="d-flex align-items-center fs-6 fw-bold mb-2">Berkas : </span>
-                        </div>
-                        <div class="col-sm-12 col-md-4 col-lg-9">
-                            <a id="show_berkas" target="_blank"
-                                class="d-flex align-items-center text-primary text-hover-success">
-                                <span class="svg-icon svg-icon-4 me-1"><i class="bi bi-eye"></i></span>
-                                Lihat Berkas
-                            </a>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span class="fs-6 fw-bold">Berkas</span>
+                                </div>
+                                <div class="col-9">
+                                    <a id="show_berkas" target="_blank"
+                                        class="d-flex align-items-center text-primary text-hover-success">
+                                        <span class="svg-icon svg-icon-4 me-1"><i class="bi bi-eye"></i></span>
+                                        Lihat Berkas
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
             <div class="modal-footer">

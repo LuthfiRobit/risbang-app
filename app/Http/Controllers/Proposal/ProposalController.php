@@ -10,6 +10,7 @@ use App\Models\Proposal;
 use App\Models\TahunAkademik;
 use App\Services\PermissionService;
 use App\Services\ProposalService;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -90,6 +91,7 @@ class ProposalController extends Controller
     public function overview(string $id)
     {
         $id = Crypt::decryptString($id);
+        $dana = TahunAkademik::where('id_tahun_akademik', $id)->value('dana_maksimal') ?? 1;
         $penelitian = Proposal::select('id_proposal', 'status', 'status_review')->where([['jenis', 'Penelitian'], ['tahun_akademik_id', $id], ['dosen_id', $this->dosenId]])->first();
         $pengabdian = Proposal::select('id_proposal', 'status', 'status_review')->where([['jenis', 'Pengabdian'], ['tahun_akademik_id', $id], ['dosen_id', $this->dosenId]])->first();
         $accessTh = false;
@@ -100,9 +102,8 @@ class ProposalController extends Controller
             }
         }
         // dd($access);
-        return view('proposal.pengajuan.overview', compact('access'));
+        return view('proposal.pengajuan.overview', compact('access', 'dana'));
     }
-
 
     public function indexKemajuan()
     {
@@ -264,6 +265,62 @@ class ProposalController extends Controller
             }
         } else {
             return redirect()->back()->with('fail', 'Anda belum bisa mengakses halaman luaran, pastikan proposal penelitian dan pengabdian sudah diterima');
+        }
+    }
+
+    public function indexPelaksanaan()
+    {
+        return view('proposal.pelaksanaan.index');
+    }
+
+    public function listPelaksanaan()
+    {
+        $currentDate = Carbon::now();
+        $data = DB::table("tahun_akademik")
+            ->leftJoin("deadline_proposal", function ($join) {
+                $join->on("tahun_akademik.id_tahun_akademik", "=", "deadline_proposal.tahun_akademik_id");
+            })
+            ->select("tahun_akademik.id_tahun_akademik", "deadline_proposal.tahun_akademik_id", "tahun_akademik.nama_tahun_akademik", "deadline_proposal.tanggal_mulai", "deadline_proposal.tanggal_akhir", "deadline_proposal.jenis", "deadline_proposal.keterangan", "deadline_proposal.aktif")
+            ->where("deadline_proposal.keterangan", "=", 'Pelaksanaan')
+            ->orderBy("tahun_akademik.tahun_akhir", "desc")
+            ->groupBy("tahun_akademik.id_tahun_akademik")
+            ->get()
+            ->map(
+                function ($ta) use ($currentDate) {
+                    return [
+                        'id_tahun_akademik' => $ta->id_tahun_akademik,
+                        'nama' => $ta->nama_tahun_akademik,
+                        'tgl_mulai' => $ta->tanggal_mulai,
+                        'tgl_akhir' => $ta->tanggal_akhir,
+                        'jenis' => $ta->jenis,
+                        'keterangan' => $ta->keterangan,
+                        'aktif' => $currentDate->gt(Carbon::parse($ta->tanggal_akhir)) ? 'Ditutup' : 'Dibuka',
+                        'action' => Crypt::encryptString($ta->id_tahun_akademik)
+                    ];
+                }
+            );
+
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->toJson();
+    }
+
+    public function overviewPelaksanaan(Request $request, string $id)
+    {
+        $dosenId = Crypt::decryptString($request->query('dosen'));
+        $id = Crypt::decryptString($id);
+
+        $access = $this->proposalService->proposalAccess($id, $dosenId);
+
+        if ($access['access_pengajuan']) {
+            // if ($access['access_kemajuan']) {
+            return view('proposal.pelaksanaan.overview', $access);
+            // } else {
+            //     // return $access;
+            //     return redirect()->back()->with('fail', 'Anda belum bisa mengakses halaman pelaksanaan, pastikan laporan kemajuan penelitian dan pengabdian sudah diterima');
+            // }
+        } else {
+            return redirect()->back()->with('fail', 'Anda belum bisa mengakses halaman pelaksanaan, pastikan proposal penelitian dan pengabdian sudah diterima');
         }
     }
 }

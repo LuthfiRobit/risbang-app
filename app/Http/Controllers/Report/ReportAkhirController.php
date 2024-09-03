@@ -122,6 +122,7 @@ class ReportAkhirController extends Controller
                 'akhir_proposal.link_drive',
                 'akhir_proposal.file_akhir',
                 'akhir_proposal.keaslian',
+                'review_akhir_proposal.nilai',
                 'proposal.judul',
                 'tahun_akademik.nama_tahun_akademik',
                 'dosen.nama_dosen',
@@ -129,6 +130,7 @@ class ReportAkhirController extends Controller
                 'fakultas.nama_fakultas'
             )
             ->leftJoin('proposal', 'proposal.id_proposal', '=', 'akhir_proposal.proposal_id')
+            ->leftJoin('review_akhir_proposal', 'review_akhir_proposal.akhir_proposal_id', '=', 'akhir_proposal.id_akhir_proposal')
             ->leftJoin('tahun_akademik', 'tahun_akademik.id_tahun_akademik', '=', 'akhir_proposal.tahun_akademik_id')
             ->leftJoin('dosen', 'dosen.id_dosen', '=', 'akhir_proposal.dosen_id')
             ->leftJoin('prodi', 'prodi.id_prodi', '=', 'dosen.prodi_id')
@@ -149,7 +151,8 @@ class ReportAkhirController extends Controller
             'status' => $query->status_review,
             'keaslian' => $query->keaslian  == 'y' ? 'Terkonfirmasi' : 'Belum Terkonfirmasi',
             'link' => $query->link_drive,
-            'file' => asset('files/akhirProposal/' . $query->file_akhir),
+            'file' => $query->file_akhir ? asset('files/akhirProposal/' . $query->file_akhir) : null,
+            'nilai' => $query->nilai,
             'tahun_akademik' => $query->nama_tahun_akademik,
             'dosen' => $query->nama_dosen,
             'prodi' => $query->nama_prodi,

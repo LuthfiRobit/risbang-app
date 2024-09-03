@@ -47,6 +47,16 @@
                         </div>
                         <div class="col-sm-12">
                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <span class="required">Dana Maksimal</span>
+                            </label>
+                            <!--end::Label-->
+                            <input type="number" class="form-control form-control-sm date-own-2"
+                                name="edit_data_dana_maksimal" id="edit_data_dana_maksimal" min="1"
+                                placeholder="Masukkan Dana Maksimal Untuk Proposal" required />
+                            <ul id="error-list" class="list-unstyled text-danger"></ul>
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                 <span class="required">Aktifasi</span>
                             </label>
                             <select class="selectpicker form-control form-control-sm" name="edit_data_aktifasi"

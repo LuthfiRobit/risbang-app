@@ -10,17 +10,28 @@
                     <h3>Data not found</h3>
                 </div>
                 <div id="show_data" style="display: none;">
-                    <div class="d-flex flex-column fv-row mb-2">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>Nama Bidang Ilmu</span>
-                        </label>
-                        <p id="show_data_nama"></p>
-                    </div>
-                    <div class="d-flex flex-column fv-row mb-2">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>Aktif ?</span>
-                        </label>
-                        <p id="show_data_aktif"></p>
+                    <div class="row mb-3">
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">Nama Bidang Ilmu</span>
+                                </div>
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_data_nama" class="mb-0"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">Aktif ?</span>
+                                </div>
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_data_aktif"
+                                        class="mb-0"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

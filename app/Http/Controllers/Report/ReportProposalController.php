@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Number;
 use Yajra\DataTables\Facades\DataTables;
 
 class ReportProposalController extends Controller
@@ -165,6 +166,7 @@ class ReportProposalController extends Controller
                 'proposal.judul',
                 'proposal.jenis',
                 'proposal.status_review',
+                'proposal.dana',
                 'proposal.jenis_penelitian',
                 'proposal.jenis_pengabdian',
                 'proposal.abstrak',
@@ -174,11 +176,93 @@ class ReportProposalController extends Controller
                 'proposal.rencana',
                 'proposal.dapus',
                 'proposal.file_proposal',
+                'review_proposal.nilai_judul',
+                'review_proposal.nilai_abstrak',
+                'review_proposal.nilai_kata_kunci',
+                'review_proposal.nilai_latar_belakang',
+                'review_proposal.nilai_metode',
+                'review_proposal.nilai_rencana',
+                'review_proposal.nilai_dapus',
                 'tahun_akademik.nama_tahun_akademik',
                 'dosen.nama_dosen',
                 'prodi.nama_prodi',
                 'fakultas.nama_fakultas'
             )
+            ->leftJoin('review_proposal', 'review_proposal.proposal_id', '=', 'proposal.id_proposal')
+            ->leftJoin('tahun_akademik', 'tahun_akademik.id_tahun_akademik', '=', 'proposal.tahun_akademik_id')
+            ->leftJoin('dosen', 'dosen.id_dosen', '=', 'proposal.dosen_id')
+            ->leftJoin('prodi', 'prodi.id_prodi', '=', 'dosen.prodi_id')
+            ->leftJoin('fakultas', 'fakultas.id_fakultas', '=', 'prodi.fakultas_id')
+            ->where('proposal.id_proposal', $id)
+            ->first();
+
+        // Check if the proposal exists
+        if (!$proposal) {
+            return response()->json(['success' => false, 'message' => 'data tidak ditemukan'], 400);
+        }
+
+        // Map the proposal data
+        $queryMap = [
+            'id_proposal' => Crypt::encryptString($proposal->id_proposal),
+            'judul' => $proposal->judul,
+            'jenis_proposal' => $proposal->jenis,
+            'status' => $proposal->status_review,
+            'dana' => $proposal->dana ? Number::currency($proposal->dana, 'IDR', 'id') : Number::currency(0, 'IDR', 'id'),
+            'jenis' => $proposal->jenis == 'Penelitian' ? $proposal->jenis_penelitian : $proposal->jenis_pengabdian,
+            'abstrak' => $proposal->abstrak,
+            'katkun' => $proposal->kata_kunci,
+            'latbel' => $proposal->latar_belakang,
+            'metode' => $proposal->metode,
+            'rencana' => $proposal->rencana,
+            'dapus' => $proposal->dapus,
+            'file' => $proposal->jenis == 'Penelitian'
+                ? asset('files/proposalPenelitian/' . $proposal->file_proposal)
+                : asset('files/proposalPengabdian/' . $proposal->file_proposal),
+            'nilai_judul' => $proposal->nilai_judul,
+            'nilai_abstrak' => $proposal->nilai_abstrak,
+            'nilai_katkun' => $proposal->nilai_kata_kunci,
+            'nilai_latbel' => $proposal->nilai_latar_belakang,
+            'nilai_metode' => $proposal->nilai_metode,
+            'nilai_rencana' => $proposal->nilai_rencana,
+            'nilai_dapus' => $proposal->nilai_dapus,
+            'tahun_akademik' => $proposal->nama_tahun_akademik,
+            'dosen' => $proposal->nama_dosen,
+            'prodi' => $proposal->nama_prodi,
+            'fakultas' => $proposal->nama_fakultas
+        ];
+
+        // Return the response
+        return response()->json(['success' => true, 'message' => 'data tersedia', 'data' => $queryMap], 200);
+    }
+
+    public function kelengkapan(string $id)
+    {
+        try {
+            // Decrypt the ID
+            $id = Crypt::decryptString($id);
+        } catch (DecryptException $e) {
+            return response()->json(['success' => false, 'message' => 'Invalid ID'], 400);
+        }
+
+        // Retrieve the proposal data along with related data
+        $proposal = DB::table('proposal')
+            ->select(
+                'proposal.id_proposal',
+                'proposal.judul',
+                'proposal.jenis',
+                'proposal.status_review',
+                'proposal.dana',
+                'proposal.jenis_penelitian',
+                'proposal.jenis_pengabdian',
+                'surat_tugas_proposal.file_surat',
+                'surat_moa_proposal.file_moa',
+                'tahun_akademik.nama_tahun_akademik',
+                'dosen.nama_dosen',
+                'prodi.nama_prodi',
+                'fakultas.nama_fakultas'
+            )
+            ->leftJoin('surat_tugas_proposal', 'surat_tugas_proposal.proposal_id', '=', 'proposal.id_proposal')
+            ->leftJoin('surat_moa_proposal', 'surat_moa_proposal.proposal_id', '=', 'proposal.id_proposal')
             ->leftJoin('tahun_akademik', 'tahun_akademik.id_tahun_akademik', '=', 'proposal.tahun_akademik_id')
             ->leftJoin('dosen', 'dosen.id_dosen', '=', 'proposal.dosen_id')
             ->leftJoin('prodi', 'prodi.id_prodi', '=', 'dosen.prodi_id')
@@ -198,16 +282,8 @@ class ReportProposalController extends Controller
             'jenis_proposal' => $proposal->jenis,
             'status' => $proposal->status_review,
             'jenis' => $proposal->jenis == 'Penelitian' ? $proposal->jenis_penelitian : $proposal->jenis_pengabdian,
-            'abstrak' => $proposal->abstrak,
-            'katkun' => $proposal->kata_kunci,
-            'latbel' => $proposal->latar_belakang,
-            'metode' => $proposal->metode,
-            'rencana' => $proposal->rencana,
-            'dapus' => $proposal->dapus,
-            'file' => $proposal->jenis == 'Penelitian'
-                ? asset('files/proposalPenelitian/' . $proposal->file_proposal)
-                : asset('files/proposalPengabdian/' . $proposal->file_proposal),
-            'tahun_akademik' => $proposal->nama_tahun_akademik,
+            'file_surat' => $proposal->file_surat ?  asset('files/suratTugas/' . $proposal->file_surat) :  null,
+            'file_moa' => $proposal->file_moa ?  asset('files/suratMoa/' . $proposal->file_moa) :  null,
             'dosen' => $proposal->nama_dosen,
             'prodi' => $proposal->nama_prodi,
             'fakultas' => $proposal->nama_fakultas

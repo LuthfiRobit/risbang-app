@@ -45,24 +45,36 @@
                 </div>
             </div>
             @if (Auth::user()->dosen_role == 'dosen')
-                <div class="notice bg-light-success border-success mb-3 rounded border border-dashed p-3">
-                    <div class="d-flex flex-stack">
-                        <div class="row">
-                            <span class="fs-12 fw-bolder">List rujukan roadmap program studi.
-                            </span>
+                <div class="accordion mb-3" id="kt_accordion_1">
+                    <div class="accordion-item">
+                        <h6 class="accordion-header bg-light-success border-success rounded border border-dashed p-0"
+                            id="kt_accordion_1_header_1">
+                            <button class="accordion-button fs-12 fw-bolder p-4" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#kt_accordion_1_body_1" aria-expanded="true"
+                                aria-controls="kt_accordion_1_body_1">
+                                List rujukan roadmap program studi.
+                            </button>
+                        </h6>
+                        <div id="kt_accordion_1_body_1" class="accordion-collapse collapse"
+                            aria-labelledby="kt_accordion_1_header_1" data-bs-parent="#kt_accordion_1">
+                            <div class="accordion-body p-0">
+                                <div class="row p-3 g-3">
+                                    @foreach ($roadmapProdi as $item)
+                                        <div class="col-4">
+                                            <div class="rounded border border-primary text-center p-2">
+                                                <a href="{{ $item['berkas'] }}" target="_blank"
+                                                    class="text-primary text-hover-success">
+                                                    <span class="svg-icon svg-icon-4 me-1"><i
+                                                            class="bi bi-download"></i></span>
+                                                    {{ $item['nama_roadmap'] }}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row p-3">
-                    @foreach ($roadmapProdi as $item)
-                        <div class="col-sm-12 col-md-4 col-lg-4 rounded border border-primary text-center">
-                            <a href="{{ $item['berkas'] }}" target="_blank"
-                                class=" text-primary text-hover-success me-5 mb-2">
-                                <span class="svg-icon svg-icon-4 me-1"><i class="bi bi-download"></i></span>
-                                {{ $item['nama_roadmap'] }}
-                            </a>
-                        </div>
-                    @endforeach
                 </div>
             @endif
             @if (session()->has('fail'))

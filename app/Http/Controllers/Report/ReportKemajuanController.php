@@ -120,6 +120,11 @@ class ReportKemajuanController extends Controller
                 'kemajuan_proposal.status_review',
                 'kemajuan_proposal.link_drive',
                 'kemajuan_proposal.file_kemajuan',
+                'review_kemajuan_proposal.skor_publikasi',
+                'review_kemajuan_proposal.skor_pemakalah',
+                'review_kemajuan_proposal.skor_bahan',
+                'review_kemajuan_proposal.skor_ttg',
+                'review_kemajuan_proposal.nilai',
                 'proposal.judul',
                 'tahun_akademik.nama_tahun_akademik',
                 'dosen.nama_dosen',
@@ -127,6 +132,7 @@ class ReportKemajuanController extends Controller
                 'fakultas.nama_fakultas'
             )
             ->leftJoin('proposal', 'proposal.id_proposal', '=', 'kemajuan_proposal.proposal_id')
+            ->leftJoin('review_kemajuan_proposal', 'review_kemajuan_proposal.kemajuan_proposal_id', '=', 'kemajuan_proposal.id_kemajuan_proposal')
             ->leftJoin('tahun_akademik', 'tahun_akademik.id_tahun_akademik', '=', 'kemajuan_proposal.tahun_akademik_id')
             ->leftJoin('dosen', 'dosen.id_dosen', '=', 'kemajuan_proposal.dosen_id')
             ->leftJoin('prodi', 'prodi.id_prodi', '=', 'dosen.prodi_id')
@@ -146,7 +152,12 @@ class ReportKemajuanController extends Controller
             'jenis_proposal' => $query->jenis,
             'status' => $query->status_review,
             'link' => $query->link_drive,
-            'file' => asset('files/kemajuanProposal/' . $query->file_kemajuan),
+            'file' => $query->file_kemajuan ? asset('files/kemajuanProposal/' . $query->file_kemajuan) : null,
+            'skor_publikasi' => $query->skor_publikasi,
+            'skor_pemakalah' => $query->skor_pemakalah,
+            'skor_bahan' => $query->skor_bahan,
+            'skor_ttg' => $query->skor_ttg,
+            'nilai' => $query->nilai,
             'tahun_akademik' => $query->nama_tahun_akademik,
             'dosen' => $query->nama_dosen,
             'prodi' => $query->nama_prodi,

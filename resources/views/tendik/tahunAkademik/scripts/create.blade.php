@@ -26,6 +26,7 @@
                     "tahun_awal": $("#tahun_awal").val(),
                     "tahun_akhir": $("#tahun_akhir").val(),
                     "nama_tahun_akademik": $("#nama_tahun_akademik").val(),
+                    "dana_maksimal": $("#dana_maksimal").val(),
                     "aktifasi": $("#aktifasi").val(),
                     // "id_role": $("#id_role").val(),
                     // "email": $("#email").val(),

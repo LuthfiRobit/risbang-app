@@ -128,14 +128,14 @@ class RoadmapProdiController extends Controller
         }
 
         $file = $request->file('file');
-        $file_name = 'FRP_' . uniqid() . '.' . $file->getClientOriginalExtension();
+        $file_name = 'FRP_' . $request->jenis . '_' . $request->rentan_nama . '.' .  $file->getClientOriginalExtension();
 
         DB::beginTransaction();
         try {
             $save['prodi_id'] = $this->kaprodiId;
             $save['rentan_waktu_id'] = $request->rentan;
             $save['jenis'] = $request->jenis;
-            $save['nama_roadmap'] = 'R-' . $request->jenis . '-' . $this->dosenId . '-' . $this->userRole;
+            $save['nama_roadmap'] = 'R-' . $request->jenis . '-' . $request->rentan_nama . '-' . $this->dosenRole;
             $save['tanggal_upload'] = date("Y-m-d");
             $save['berkas'] = $file_name;
             $store = RoadMap::create($save);
@@ -183,14 +183,14 @@ class RoadmapProdiController extends Controller
                 if (file_exists($file_folder . '/' . $file_name)) {
                     unlink($file_folder . '/' . $file_name);
                 }
-                $file_name = 'FRP_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $file_name = 'FRP_' . $request->edit_jenis . '_' . $request->rentan_nama . '.' .  $file->getClientOriginalExtension();
                 $file->move($file_folder, $file_name);
             }
 
             $roadmap->update([
                 'rentan_waktu_id' => $request->edit_rentan,
                 'jenis' => $request->edit_jenis,
-                'nama_roadmap' => 'R-' . $request->edit_jenis . '-' . $this->dosenId . '-' . $this->userRole,
+                'nama_roadmap' => 'R-' . $request->edit_jenis . '-' . $request->rentan_nama . '-' .  $this->dosenRole,
                 'tanggal_upload' => date("Y-m-d"),
                 'berkas' => $file_name,
             ]);

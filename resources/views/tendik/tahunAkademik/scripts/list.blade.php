@@ -135,6 +135,10 @@
                     name: "nama_tahun_akademik"
                 },
                 {
+                    data: "dana_maksimal",
+                    name: "dana_maksimal"
+                },
+                {
                     data: "aktif",
                     name: "aktif",
                     render: function(data, type, row) {

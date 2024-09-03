@@ -27,28 +27,31 @@ class FakultasController extends Controller
 
     public function list()
     {
-        $data = DB::table('fakultas')->select(
+        $query = DB::table('fakultas')->select(
             'fakultas.id_fakultas',
             'fakultas.nama_fakultas',
             'fakultas.singkatan',
-            // 'fakultas.nama_dekan',
-            'fakultas.image',
             'fakultas.aktif',
-            // 'users.id_user',
-            // 'dosen.nama_dosen as nama_dekan'
+            'users.id_user',
+            'dosen.nama_dosen'
         )
-            // ->leftJoin('users', 'users.id_user', '=', 'fakultas.user_id')
-            // ->leftJoin('dosen', 'dosen.user_id', '=', 'users.id_user')
-            ->orderBy('fakultas.created_at', 'DESC')
-            ->get();
-        return DataTables::of($data)
+            ->leftJoin('users', 'users.id_user', '=', 'fakultas.user_id')
+            ->leftJoin('dosen', 'dosen.user_id', '=', 'users.id_user')
+            ->orderBy('fakultas.created_at', 'DESC');
+
+        $result = $query->get()->map(function ($q) {
+            return [
+                'cek' => Crypt::encryptString($q->id_fakultas),
+                'action' => Crypt::encryptString($q->id_fakultas),
+                'singkatan' => $q->singkatan,
+                'nama_fakultas' => $q->nama_fakultas,
+                'nama_dekan' => $q->nama_dosen ?  $q->nama_dosen : 'belum ditentukan',
+                'aktif' => $q->aktif
+            ];
+        });
+
+        return DataTables::of($result)
             ->addIndexColumn()
-            ->addColumn('cek', function ($model) {
-                return Crypt::encryptString($model->id_fakultas);
-            })
-            ->addColumn('action', function ($model) {
-                return Crypt::encryptString($model->id_fakultas);
-            })
             ->toJson();
     }
 

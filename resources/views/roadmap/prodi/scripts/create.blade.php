@@ -18,7 +18,16 @@
             if (result.value) {
                 const action = "{{ route('roadmap.prodi.store') }}";
                 const formData = new FormData();
-                formData.append("rentan", $("#rentan").val());
+
+                // Ambil ID rentan dan nama rentan
+                const rentanSelect = $("#rentan");
+                const selectedRentan = rentanSelect.find("option:selected");
+                const rentanId = selectedRentan.val();
+                const rentanNama = selectedRentan.data("nama");
+
+                formData.append("rentan", rentanId);
+                formData.append("rentan_nama", rentanNama); // Tambahkan nama rentan ke formData
+
                 formData.append("jenis", $("#jenis").val());
                 if ($("#file")[0].files.length > 0) {
                     formData.append("file", $("#file")[0].files[0]);

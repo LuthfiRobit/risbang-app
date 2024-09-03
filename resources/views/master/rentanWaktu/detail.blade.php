@@ -10,29 +10,50 @@
                     <h3>Data not found</h3>
                 </div>
                 <div id="show_data" style="display: none;">
-                    <div class="d-flex flex-column fv-row mb-2">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>Tahun Awal</span>
-                        </label>
-                        <p id="show_data_tahun_awal"></p>
-                    </div>
-                    <div class="d-flex flex-column fv-row mb-2">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>Tahun Akhir</span>
-                        </label>
-                        <p id="show_data_tahun_akhir"></p>
-                    </div>
-                    <div class="d-flex flex-column fv-row mb-2">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>Nama Rentan Waktu</span>
-                        </label>
-                        <p id="show_data_nama"></p>
-                    </div>
-                    <div class="d-flex flex-column fv-row mb-2">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>Aktif ?</span>
-                        </label>
-                        <p id="show_data_aktif"></p>
+                    <div class="row mb-3">
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">Tahun Awal</span>
+                                </div>
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_data_tahun_awal"
+                                        class="mb-0"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">Tahun Akhir</span>
+                                </div>
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_data_tahun_akhir"
+                                        class="mb-0"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">Nama Rentan Waktu</span>
+                                </div>
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_data_nama" class="mb-0"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <div class="row">
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">Aktif ?</span>
+                                </div>
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">:</span> <span id="show_data_aktif"
+                                        class="mb-0"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

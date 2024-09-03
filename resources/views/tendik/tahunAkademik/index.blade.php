@@ -1,5 +1,5 @@
 @extends('layout.main4')
-
+@section('title-one', 'Tendik | Data Tahun Akademik')
 @section('css-for-this-page')
     <link rel="stylesheet" href="{{ asset('assets/plugins/custom/datatables/dataTables.bootstrap5.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/custom/datatables/responsive.bootstrap.min.css') }}">
@@ -30,8 +30,10 @@
                         <span class="fs-12 text-gray-700">Berikut ini adalah daftar dari Tahun Akademik data.
                         </span>
                         <div class="row">
-                            <span style="color: #a1081f; font-weight: 500;">Data Tahun Akademik tidak aktif</span>
-                            <span style="color: #0b7a44 ; font-weight: 500;">Data Tahun Akademik aktif</span>
+                            <span style="color: #a1081f; font-weight: 500;">Data tahun akademik tidak aktif</span>
+                            <span style="color: #0b7a44 ; font-weight: 500;">Data tahun akademik aktif</span>
+                            <span style="color: #173426 ; font-weight: 500;">Hanya boleh ada satu tahun akademik
+                                aktif</span>
                         </div>
                     </div>
                 </div>
@@ -55,6 +57,7 @@
                             </th>
                             <th class="min-w-125px">Actions</th>
                             <th class="min-w-125px">Tahun Akademik</th>
+                            <th class="min-w-125px">Dana Maksimal Proposal</th>
                             <th class="min-w-125px">Status</th>
                         </tr>
                     </thead>

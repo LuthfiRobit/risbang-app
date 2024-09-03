@@ -15,7 +15,10 @@
                             <select class="selectpicker form-control form-control-sm" name="rentan" id="rentan"
                                 data-live-search="true" title="Pilih Rentan Waktu" required>
                                 @foreach ($rentanWaktu as $item)
-                                    <option value="{{ $item->id_rentan_waktu }}">{{ $item->nama_rentan_waktu }}</option>
+                                    <option value="{{ $item->id_rentan_waktu }}"
+                                        data-nama="{{ $item->nama_rentan_waktu }}">
+                                        {{ $item->nama_rentan_waktu }}
+                                    </option>
                                 @endforeach
                             </select>
                             <ul id="error-list" class="list-unstyled text-danger"></ul>

@@ -16,6 +16,10 @@ return new class extends Migration
             $table->integer('kemajuan_proposal_id')->unsigned()->nullable();
             $table->integer('reviewer_id')->unsigned()->nullable();
             $table->text('komen')->nullable();
+            $table->integer('skor_publikasi')->nullable();
+            $table->integer('skor_pemakalah')->nullable();
+            $table->integer('skor_bahan')->nullable();
+            $table->integer('skor_ttg')->nullable();
             $table->integer('nilai')->nullable();
             $table->timestamps();
         });

@@ -98,8 +98,8 @@
                     searchable: false,
                 },
                 {
-                    data: "singkatan_fakultas",
-                    name: "singkatan_fakultas",
+                    data: "nama_fakultas",
+                    name: "nama_fakultas",
                     orderable: false,
                     searchable: false,
                 },
@@ -107,13 +107,13 @@
                     data: "nama_prodi",
                     name: "nama_prodi"
                 },
-                // {
-                //     data: "nama_kaprodi",
-                //     name: "nama_kaprodi"
-                // },
                 {
                     data: "singkatan",
                     name: "singkatan"
+                },
+                {
+                    data: "nama_kaprodi",
+                    name: "nama_kaprodi"
                 },
                 {
                     data: "aktif",

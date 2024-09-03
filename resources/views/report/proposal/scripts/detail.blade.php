@@ -13,6 +13,7 @@
                         '------');
                     $("#show_jenis").text(response.data.jenis != null ? response.data.jenis : '------');
                     $("#show_status").text(response.data.status != null ? response.data.status : '------');
+                    $("#show_dana").text(response.data.dana != null ? response.data.dana : '------');
                     $("#show_judul").text(response.data.judul != null ? response.data.judul : '------');
                     $("#show_abstrak").text(response.data.abstrak != null ? response.data.abstrak :
                         '------');
@@ -24,6 +25,23 @@
                     $("#show_dapus").text(response.data.dapus != null ? response.data.dapus : '------');
                     $("#show_berkas").attr('href', response.data.file != null ? response.data.file :
                         '------');
+
+                    $("#show_nilai_judul").text(response.data.nilai_judul != null ? response.data
+                        .nilai_judul : '------');
+                    $("#show_nilai_abstrak").text(response.data.nilai_abstrak != null ? response.data
+                        .nilai_abstrak :
+                        '------');
+                    $("#show_nilai_katkun").text(response.data.nilai_katkun != null ? response.data
+                        .nilai_katkun : '------');
+                    $("#show_nilai_latbel").text(response.data.nilai_latbel != null ? response.data
+                        .nilai_latbel : '------');
+                    $("#show_nilai_metode").text(response.data.nilai_metode != null ? response.data
+                        .nilai_metode : '------');
+                    $("#show_nilai_rencana").text(response.data.nilai_rencana != null ? response.data
+                        .nilai_rencana :
+                        '------');
+                    $("#show_nilai_dapus").text(response.data.nilai_dapus != null ? response.data
+                        .nilai_dapus : '------');
 
                     $("#null_data").hide();
                     $("#show_data").show();
