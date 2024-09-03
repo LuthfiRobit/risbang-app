@@ -339,9 +339,7 @@ class DosenController extends Controller
 
     public function importExcel(Request $request)
     {
-        // if (! $request->hasFile('file')) {
-        //     dd('no file');
-        // }
+        // Validasi input file
         $validateData = $this->permissionService->validateData($request->all(), [
             'file' => 'required|mimes:xlsx,xls'
         ], [
@@ -350,7 +348,7 @@ class DosenController extends Controller
         ]);
 
         if ($validateData !== null) {
-            return $validateData;
+            return response()->json(['success' => false, 'message' => $validateData->getMessage()], 422);
         }
 
         try {
@@ -358,14 +356,23 @@ class DosenController extends Controller
             $import = new DosenImport();
             $import->import($file);
 
-            if ($import->failures()->isNotEmpty()) {
-                return response()->json(['success' => false, 'message' => 'Some rows failed to import.', 'errors' => $import->failures()], 422);
+            // Ambil kesalahan dan data yang berhasil dari DosenImport
+            $failures = $import->failures();
+            $successfulRows = $import->successfulRows(); // Method untuk data yang berhasil
+
+            if ($failures || $successfulRows) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Impor selesai dengan beberapa hasil.',
+                    'failures' => $failures, // Data yang gagal
+                    'successes' => $successfulRows // Data yang berhasil
+                ], 200);
             }
 
-            return response()->json(['success' => true, 'message' => 'Import successful!'], 200);
+            return response()->json(['success' => true, 'message' => 'Impor berhasil tanpa kesalahan!'], 200);
         } catch (\Exception $e) {
             Log::error('Import Excel error: ' . $e->getMessage());
-            return response()->json(['success' => false, 'message' => 'Import failed: ' . $e->getMessage()], 500);
+            return response()->json(['success' => false, 'message' => 'Impor gagal: ' . $e->getMessage()], 500);
         }
     }
 }
