@@ -174,11 +174,12 @@
                                         <div class="row">
                                             <span class="fs-12 text-gray-700 fw-bolder">Download :</span>
                                             <div class="row">
-                                                <a href="#"
+                                                <a href="{{ asset('files/template/template_akhir.docx') }}"
+                                                    target="_blank"
                                                     class="d-flex align-items-center text-primary text-hover-success me-5 mb-2">
                                                     <span class="svg-icon svg-icon-4 me-1"><i
                                                             class="bi bi-download"></i></span>
-                                                    Template Laporan Akhir Penelitian
+                                                    Template Laporan Akhir
                                                 </a>
                                             </div>
                                         </div>
@@ -326,11 +327,12 @@
                                         <div class="row">
                                             <span class="fs-12 text-gray-700 fw-bolder">Download :</span>
                                             <div class="row">
-                                                <a href="#"
+                                                <a href="{{ asset('files/template/template_akhir.docx') }}"
+                                                    target="_blank"
                                                     class="d-flex align-items-center text-primary text-hover-success me-5 mb-2">
                                                     <span class="svg-icon svg-icon-4 me-1"><i
                                                             class="bi bi-download"></i></span>
-                                                    Template Laporan Akhir Penelitian
+                                                    Template Laporan Akhir
                                                 </a>
                                             </div>
                                         </div>
