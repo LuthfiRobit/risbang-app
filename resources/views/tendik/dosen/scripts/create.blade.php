@@ -96,7 +96,6 @@
         const fileInput = $("#file")[0];
         const file = fileInput.files[0];
 
-        // Validasi file
         if (!file) {
             Swal.fire({
                 title: 'Peringatan',
@@ -133,7 +132,6 @@
                 const formData = new FormData();
                 formData.append("file", file);
 
-                // Show the SweetAlert loading popup
                 Swal.fire({
                     title: 'Mengimpor Data',
                     html: 'Proses impor data sedang berlangsung...',
@@ -143,36 +141,50 @@
                     }
                 });
 
-                // Perform the import
                 DataManager.formData(action, formData, 'POST').then(response => {
-                    Swal.close(); // Hide the loading popup
+                    Swal.close();
+
                     if (response.success) {
-                        Swal.fire({
-                            title: 'Sukses',
-                            text: 'Data telah berhasil dikirim',
-                            icon: 'success'
-                        });
-                        setTimeout(function() {
-                            location.reload();
-                        }, 2000);
-                    } else {
-                        let errorMessage = 'Terjadi Kesalahan: ';
-                        if (response.errors) {
-                            const validationErrorFilter = new ValidationErrorFilter();
-                            validationErrorFilter.filterValidationErrors(response);
-                            errorMessage = 'Terjadi Kesalahan Validasi';
-                        } else {
-                            errorMessage = response.message;
+                        let message = '<strong>Data berhasil disimpan!</strong><br>';
+
+                        // Tampilkan data yang berhasil
+                        if (response.successes && response.successes.length > 0) {
+                            message += '<strong>Data yang berhasil disimpan:</strong><br>';
+                            response.successes.forEach((success, index) => {
+                                message +=
+                                    `Baris ${index + 1} -> ${success.nama_dosen}<br>`;
+                            });
+                        }
+
+                        // Tampilkan data yang gagal
+                        if (response.failures && response.failures.length > 0) {
+                            message += '<br><strong>Data yang gagal disimpan:</strong><br>';
+                            response.failures.forEach(failure => {
+                                message += `Baris ${failure.row_number} -> `;
+                                message += failure.errors.join(' | ') + '<br>';
+                            });
                         }
 
                         Swal.fire({
+                            title: 'Hasil Import',
+                            html: message,
+                            icon: 'success'
+                        }).then(result => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        });
+
+                    } else {
+                        Swal.fire({
                             title: 'Oops...',
-                            text: errorMessage,
+                            text: response.message ||
+                                'Terjadi kesalahan tidak terduga.',
                             icon: 'error'
                         });
                     }
                 }).catch(error => {
-                    Swal.close(); // Hide the loading popup
+                    Swal.close();
                     Swal.fire({
                         title: 'Oops...',
                         text: 'Terjadi kesalahan saat mengirim data',
