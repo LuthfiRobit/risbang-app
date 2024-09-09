@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Master;
 
+use App\Exports\FakultasExport;
 use App\Http\Controllers\Controller;
 use App\Models\Fakultas;
 use App\Services\PermissionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 class FakultasController extends Controller
@@ -161,6 +163,15 @@ class FakultasController extends Controller
             ];
 
             return response()->json($response, 400);
+        }
+    }
+
+    public function exportExcel()
+    {
+        try {
+            return Excel::download(new FakultasExport, 'data_fakultas.xlsx');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('fail', 'Export gagal');
         }
     }
 }
