@@ -170,6 +170,7 @@ Route::middleware(['auth', 'user.role:admin'])->prefix('tendik')->name('tendik.'
         Route::post('/store', [FakultasController::class, 'store'])->name('store');
         Route::put('/{id}/update', [FakultasController::class, 'update'])->name('update');
         Route::post('/update/multiple', [FakultasController::class, 'updateMultiple'])->name('update.multiple');
+        Route::get('/export/excel', [FakultasController::class, 'exportExcel'])->name('export.excel');
     });
 
     Route::prefix('prodi')->name('prodi.')->group(function () {

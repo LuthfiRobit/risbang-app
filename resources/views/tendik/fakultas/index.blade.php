@@ -40,6 +40,13 @@
                             <span style="color: #a1081f; font-weight: 500;">Tentukan dekan pada menu <a
                                     href="{{ route('setting.dosen.management.index') }}">Dosen
                                     Management</a></span>
+                            <span style="color: #0b7a44 ; font-weight: 500;">
+                                <a href="{{ route('tendik.fakultas.export.excel') }}"
+                                    class=" text-primary text-hover-success me-5 mb-2">
+                                    <span class="svg-icon svg-icon-4 me-1"><i class="bi bi-download"></i></span>Export data
+                                    fakultas (Excel)
+                                </a>
+                            </span>
                         </div>
                     </div>
                 </div>
