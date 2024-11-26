@@ -7,7 +7,7 @@
     <title>SIRIAN</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
+    <link rel="shortcut icon" href="{{ asset('assets/media/logos/logo_unas.png') }}" />
     @include('layout.style')
     <meta name="X-CSRF-TOKEN" content="{{ csrf_token() }}">
     @yield('css-for-this-page')

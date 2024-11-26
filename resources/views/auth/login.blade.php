@@ -2,10 +2,10 @@
 <html lang="en">
 
 <head>
-    <title>Laravel</title>
+    <title>SIRIAN</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
+    <link rel="shortcut icon" href="{{ asset('assets/media/logos/logo_unas.png') }}" />
     <link href="{{ asset('assets/plugins/custom/font/font.css?family=Poppins:300,400,500,600,700') }}" rel="stylesheet">
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet">

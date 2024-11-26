@@ -5,7 +5,7 @@
 <head>
     <base href="">
     <title>SIRIAN</title>
-    <link rel="shortcut icon" href="{{ asset('assets2/media/logos/favicon.ico') }}" />
+    <link rel="shortcut icon" href="{{ asset('assets/media/logos/logo_unas.png') }}" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->
