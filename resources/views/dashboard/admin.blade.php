@@ -572,11 +572,11 @@
                         });
                         $("#arsip_filter_fak").selectpicker("refresh");
                     } else {
-                        Swal.fire('Oops...', 'Kesalahan server', 'error');
+                        // Swal.fire('Oops...', 'Kesalahan server', 'error');
                     }
                 })
                 .catch(error => {
-                    Swal.fire('Oops...', 'Kesalahan server', 'error');
+                    // Swal.fire('Oops...', 'Kesalahan server', 'error');
                 });
 
             // Fetch tahun akademik data
@@ -597,11 +597,11 @@
                         });
                         $("#arsip_filter_ta").selectpicker("refresh");
                     } else {
-                        Swal.fire('Oops...', 'Kesalahan server', 'error');
+                        // Swal.fire('Oops...', 'Kesalahan server', 'error');
                     }
                 })
                 .catch(error => {
-                    Swal.fire('Oops...', 'Kesalahan server', 'error');
+                    // Swal.fire('Oops...', 'Kesalahan server', 'error');
                 });
 
             $("#arsip_filter_ta").on('change', function() {
@@ -630,11 +630,11 @@
                                 });
                                 $("#arsip_filter_pro").selectpicker('refresh');
                             } else {
-                                Swal.fire('Oops...', 'Kesalahan server', 'error');
+                                // Swal.fire('Oops...', 'Kesalahan server', 'error');
                             }
                         })
                         .catch(error => {
-                            Swal.fire('Oops...', 'Kesalahan server', 'error');
+                            // Swal.fire('Oops...', 'Kesalahan server', 'error');
                         });
                 } else {
                     $("#arsip_filter_pro").empty();
@@ -809,11 +809,11 @@
                         });
                         $("#prop_filter_fak").selectpicker("refresh");
                     } else {
-                        Swal.fire('Oops...', 'Kesalahan server', 'error');
+                        // Swal.fire('Oops...', 'Kesalahan server', 'error');
                     }
                 })
                 .catch(error => {
-                    Swal.fire('Oops...', 'Kesalahan server', 'error');
+                    // Swal.fire('Oops...', 'Kesalahan server', 'error');
                 });
 
             // Fetch tahun akademik data
@@ -834,11 +834,11 @@
                         });
                         $("#prop_filter_ta").selectpicker("refresh");
                     } else {
-                        Swal.fire('Oops...', 'Kesalahan server', 'error');
+                        // Swal.fire('Oops...', 'Kesalahan server', 'error');
                     }
                 })
                 .catch(error => {
-                    Swal.fire('Oops...', 'Kesalahan server', 'error');
+                    // Swal.fire('Oops...', 'Kesalahan server', 'error');
                 });
 
             $("#prop_filter_ta").on('change', function() {
@@ -868,11 +868,11 @@
                                 });
                                 $("#prop_filter_pro").selectpicker('refresh');
                             } else {
-                                Swal.fire('Oops...', 'Kesalahan server', 'error');
+                                // Swal.fire('Oops...', 'Kesalahan server', 'error');
                             }
                         })
                         .catch(error => {
-                            Swal.fire('Oops...', 'Kesalahan server', 'error');
+                            // Swal.fire('Oops...', 'Kesalahan server', 'error');
                         });
                 } else {
                     $("#prop_filter_pro").empty();
@@ -1053,11 +1053,11 @@
                         });
                         $("#arsip_buku_filter_fak").selectpicker("refresh");
                     } else {
-                        Swal.fire('Oops...', 'Kesalahan server', 'error');
+                        // Swal.fire('Oops...', 'Kesalahan server', 'error');
                     }
                 })
                 .catch(error => {
-                    Swal.fire('Oops...', 'Kesalahan server', 'error');
+                    // Swal.fire('Oops...', 'Kesalahan server', 'error');
                 });
 
             // Fetch tahun akademik data
@@ -1078,11 +1078,11 @@
                         });
                         $("#arsip_buku_filter_ta").selectpicker("refresh");
                     } else {
-                        Swal.fire('Oops...', 'Kesalahan server', 'error');
+                        // Swal.fire('Oops...', 'Kesalahan server', 'error');
                     }
                 })
                 .catch(error => {
-                    Swal.fire('Oops...', 'Kesalahan server', 'error');
+                    // Swal.fire('Oops...', 'Kesalahan server', 'error');
                 });
 
             $("#arsip_buku_filter_ta").on('change', function() {
@@ -1113,11 +1113,11 @@
                                 });
                                 $("#arsip_buku_filter_pro").selectpicker('refresh');
                             } else {
-                                Swal.fire('Oops...', 'Kesalahan server', 'error');
+                                // Swal.fire('Oops...', 'Kesalahan server', 'error');
                             }
                         })
                         .catch(error => {
-                            Swal.fire('Oops...', 'Kesalahan server', 'error');
+                            // Swal.fire('Oops...', 'Kesalahan server', 'error');
                         });
                 } else {
                     $("#arsip_buku_filter_pro").empty();
@@ -1292,11 +1292,11 @@
                         });
                         $("#arsip_haki_filter_fak").selectpicker("refresh");
                     } else {
-                        Swal.fire('Oops...', 'Kesalahan server', 'error');
+                        // Swal.fire('Oops...', 'Kesalahan server', 'error');
                     }
                 })
                 .catch(error => {
-                    Swal.fire('Oops...', 'Kesalahan server', 'error');
+                    // Swal.fire('Oops...', 'Kesalahan server', 'error');
                 });
 
             // Fetch tahun akademik data
@@ -1317,11 +1317,11 @@
                         });
                         $("#arsip_haki_filter_ta").selectpicker("refresh");
                     } else {
-                        Swal.fire('Oops...', 'Kesalahan server', 'error');
+                        // Swal.fire('Oops...', 'Kesalahan server', 'error');
                     }
                 })
                 .catch(error => {
-                    Swal.fire('Oops...', 'Kesalahan server', 'error');
+                    // Swal.fire('Oops...', 'Kesalahan server', 'error');
                 });
 
             $("#arsip_haki_filter_ta").on('change', function() {
@@ -1352,11 +1352,11 @@
                                 });
                                 $("#arsip_haki_filter_pro").selectpicker('refresh');
                             } else {
-                                Swal.fire('Oops...', 'Kesalahan server', 'error');
+                                // Swal.fire('Oops...', 'Kesalahan server', 'error');
                             }
                         })
                         .catch(error => {
-                            Swal.fire('Oops...', 'Kesalahan server', 'error');
+                            // Swal.fire('Oops...', 'Kesalahan server', 'error');
                         });
                 } else {
                     $("#arsip_haki_filter_pro").empty();
@@ -1531,11 +1531,11 @@
                         });
                         $("#arsip_jurnal_filter_fak").selectpicker("refresh");
                     } else {
-                        Swal.fire('Oops...', 'Kesalahan server', 'error');
+                        // Swal.fire('Oops...', 'Kesalahan server', 'error');
                     }
                 })
                 .catch(error => {
-                    Swal.fire('Oops...', 'Kesalahan server', 'error');
+                    // Swal.fire('Oops...', 'Kesalahan server', 'error');
                 });
 
             // Fetch tahun akademik data
@@ -1556,11 +1556,11 @@
                         });
                         $("#arsip_jurnal_filter_ta").selectpicker("refresh");
                     } else {
-                        Swal.fire('Oops...', 'Kesalahan server', 'error');
+                        // Swal.fire('Oops...', 'Kesalahan server', 'error');
                     }
                 })
                 .catch(error => {
-                    Swal.fire('Oops...', 'Kesalahan server', 'error');
+                    // Swal.fire('Oops...', 'Kesalahan server', 'error');
                 });
 
             $("#arsip_jurnal_filter_ta").on('change', function() {
@@ -1591,11 +1591,11 @@
                                 });
                                 $("#arsip_jurnal_filter_pro").selectpicker('refresh');
                             } else {
-                                Swal.fire('Oops...', 'Kesalahan server', 'error');
+                                // Swal.fire('Oops...', 'Kesalahan server', 'error');
                             }
                         })
                         .catch(error => {
-                            Swal.fire('Oops...', 'Kesalahan server', 'error');
+                            // Swal.fire('Oops...', 'Kesalahan server', 'error');
                         });
                 } else {
                     $("#arsip_jurnal_filter_pro").empty();
